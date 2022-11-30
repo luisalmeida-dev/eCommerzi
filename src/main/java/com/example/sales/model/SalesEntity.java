@@ -13,8 +13,8 @@ public class SalesEntity {
     @Column(name = "SALES_ID")
     private Long id;
 
-    @Column(name = "VALUE")
-    private String value;
+    @Column(name = "AMOUNT")
+    private String amount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "STORE_ID")

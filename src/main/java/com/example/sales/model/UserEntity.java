@@ -12,6 +12,9 @@ public class UserEntity {
     @Column(name = "USER_ID")
     private Long id;
 
+    @Column(name = "CPF")
+    private String cpf;
+
     @Column(name = "NAME")
     private String name;
 
@@ -23,38 +26,26 @@ public class UserEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "STATUS_USER_ID")
-    private StatusUserEntity status;
+    private StatusUserEntity statusId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ROLE_ID")
-    private RoleEntity role;
+    private RoleEntity roleId;
 
-    public Long getId() {
-        return id;
+    public StatusUserEntity getStatusId() {
+        return statusId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setStatusId(StatusUserEntity statusId) {
+        this.statusId = statusId;
     }
 
-    public StatusUserEntity getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusUserEntity status) {
-        this.status = status;
-    }
-
-    public void setRole(RoleEntity role) {
-        this.role = role;
-    }
-
-    public RoleEntity getRole() {
-        return role;
+    public RoleEntity getRoleId() {
+        return roleId;
     }
 
     public void setRoleId(RoleEntity roleId) {
-        this.role = roleId;
+        this.roleId = roleId;
     }
 
     public String getName() {
@@ -79,5 +70,13 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }
