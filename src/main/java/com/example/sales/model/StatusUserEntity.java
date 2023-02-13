@@ -14,12 +14,11 @@ public class StatusUserEntity {
     @Column(name = "STATUS")
     private String status;
 
-    public Long getId() {
-        return id;
+    public StatusUserEntity() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getStatus() {

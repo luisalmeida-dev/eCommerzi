@@ -2,7 +2,6 @@ package com.example.sales.controller;
 
 import com.example.sales.dto.request.UserRequsetDTO;
 import com.example.sales.service.UserService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,18 +10,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @PostMapping("")
     public ResponseEntity<String> create(@RequestBody UserRequsetDTO request) throws Exception {
         userService.createUser(request);
-        return ResponseEntity.ok("O usuario foi criado com sucesso!")
-                ;
+        return ResponseEntity.ok("The user was successfully created!");
     }
 
-    @GetMapping("")
-    public ResponseEntity<String> getUser (Long id){
-        return ResponseEntity.ok("Usuario {id}");
+    @GetMapping("/{id}")
+    public ResponseEntity<String> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok("This is user: " + id);
     }
-
 }

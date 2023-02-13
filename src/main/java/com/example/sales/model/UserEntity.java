@@ -24,27 +24,25 @@ public class UserEntity {
     @Column(name = "PASSWORD")
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "STATUS_USER_ID")
-    private StatusUserEntity statusId;
+    private Long statusId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ROLE_ID")
-    private RoleEntity roleId;
+    private Long roleId;
 
-    public StatusUserEntity getStatusId() {
+    public Long getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(StatusUserEntity statusId) {
+    public void setStatusId(Long statusId) {
         this.statusId = statusId;
     }
 
-    public RoleEntity getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(RoleEntity roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

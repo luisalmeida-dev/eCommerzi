@@ -1,8 +1,5 @@
 package com.example.sales.dto.request;
 
-import com.example.sales.model.RoleEntity;
-import com.example.sales.model.StatusUserEntity;
-
 public class UserRequsetDTO {
 
     private String cpf;
@@ -10,9 +7,9 @@ public class UserRequsetDTO {
     private String email;
     private String password;
 
-    private StatusUserEntity statusId;
+    private Long statusId;
 
-    private RoleEntity roleId;
+    private Long roleId;
 
     public String getCpf() {
         return cpf;
@@ -46,19 +43,19 @@ public class UserRequsetDTO {
         this.password = password;
     }
 
-    public StatusUserEntity getStatusId() {
+    public Long getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(StatusUserEntity statusId) {
+    public void setStatusId(Long statusId) {
         this.statusId = statusId;
     }
 
-    public RoleEntity getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(RoleEntity roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 }

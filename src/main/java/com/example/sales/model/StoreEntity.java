@@ -11,9 +11,9 @@ public class StoreEntity {
     @Column(name = "STORE_ID")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
-    private UserEntity user;
+    private UserEntity userId;
 
     @Column(name = "NAME")
     private String name;

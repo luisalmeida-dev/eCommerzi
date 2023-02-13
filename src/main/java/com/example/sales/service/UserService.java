@@ -16,18 +16,19 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    //TODO create a parser or mapper that transforms DTO's into entities vice versa
     public void createUser(UserRequsetDTO request) throws Exception {
         if (userRepository.findByCpf(request.getCpf()) == null) {
             UserEntity userEntity = new UserEntity();
-            //TODO create a parser or mapper that transforms DTO's into entities vice versa
-            RoleEntity role = roleRepository.findById(request.getRoleId().getId()).orElseThrow(()-> new Exception("Role not found"));
+            RoleEntity role = roleRepository.findById(request.getRoleId()).orElseThrow(() -> new Exception("Role not found"));
             userEntity.setCpf(request.getCpf());
             userEntity.setEmail(request.getEmail());
             userEntity.setName(request.getName());
-            userEntity.setRoleId(role);
+            userEntity.setRoleId(request.getRoleId());
             userEntity.setPassword(request.getPassword()); //TODO user password will be encrypted when authentication is implemented
+            userRepository.save(userEntity);
         } else {
-            throw new Exception("User alredy Registered");
+            throw new Exception("User already Registered");
         }
     }
 }
