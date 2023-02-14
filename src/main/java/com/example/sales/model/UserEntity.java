@@ -1,6 +1,9 @@
 package com.example.sales.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "TB_USER")
@@ -24,11 +27,18 @@ public class UserEntity {
     @Column(name = "PASSWORD")
     private String password;
 
+    @Column(name = "REGISTRATION_DATE")
+    private LocalDateTime registrationDate;
+
     @JoinColumn(name = "STATUS_USER_ID")
     private Long statusId;
 
     @JoinColumn(name = "ROLE_ID")
     private Long roleId;
+
+    public Long getId() {
+        return id;
+    }
 
     public Long getStatusId() {
         return statusId;
@@ -76,5 +86,13 @@ public class UserEntity {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(LocalDateTime registrationDate) {
+        this.registrationDate = registrationDate;
     }
 }

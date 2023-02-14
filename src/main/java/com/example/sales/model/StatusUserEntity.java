@@ -14,9 +14,6 @@ public class StatusUserEntity {
     @Column(name = "STATUS")
     private String status;
 
-    public StatusUserEntity() {
-    }
-
     public Long getId() {
         return id;
     }
