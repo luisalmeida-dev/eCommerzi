@@ -1,16 +1,20 @@
 package com.example.sales.dto.request;
 
 public class UserUpdateRequestDTO {
-    private String cpf;
+    private String login;
+
     private String name;
+
     private String email;
 
-    public String getCpf() {
-        return cpf;
+    private String phone;
+
+    public String getLogin() {
+        return login;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getName() {
@@ -27,5 +31,13 @@ public class UserUpdateRequestDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

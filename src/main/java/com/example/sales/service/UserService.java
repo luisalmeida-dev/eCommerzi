@@ -28,17 +28,18 @@ public class UserService {
 
     //TODO create a parser or mapper that transforms DTO's into entities vice versa
     public void createUser(UserRequsetDTO request) throws Exception {
-        if (userRepository.findByCpf(request.getCpf()) == null) {
+        if (userRepository.findByLogin(request.getLogin()) == null) {
             //TODO fix dateTime not picking up correct time
             LocalDateTime dateTime = LocalDateTime.now();
             validateRoleAndStatus(request.getRoleId(), request.getStatusId());
             UserEntity userEntity = new UserEntity();
-            userEntity.setCpf(request.getCpf());
-            userEntity.setEmail(request.getEmail());
             userEntity.setName(request.getName());
-            userEntity.setRoleId(request.getRoleId());
-            userEntity.setStatusId(request.getStatusId());
+            userEntity.setEmail(request.getEmail());
+            userEntity.setLogin(request.getLogin());
             userEntity.setPassword(request.getPassword()); //TODO user password will be encrypted when authentication is implemented
+            userEntity.setPhone(request.getPhone());
+            userEntity.setStatusId(request.getStatusId());
+            userEntity.setRoleId(request.getRoleId());
             userEntity.setRegistrationDate(dateTime);
             userRepository.save(userEntity);
         } else {
@@ -46,8 +47,8 @@ public class UserService {
         }
     }
 
-    public UserResponseDTO getUserByCpf (String cpf) throws Exception {
-        UserEntity user = userRepository.findByCpf(cpf);
+    public UserResponseDTO getUserByLogin (String login) throws Exception {
+        UserEntity user = userRepository.findByLogin(login);
         if(user != null){
             //TODO see how parsers work to remove hardcoded sets.
             UserResponseDTO response = new UserResponseDTO();
@@ -55,6 +56,7 @@ public class UserService {
             status.ifPresent(statusUserEntity -> response.setStatus(statusUserEntity.getStatus()));
             response.setEmail(user.getEmail());
             response.setName(user.getName());
+            response.setPhone(user.getPhone());
             response.setRegistrationDate(user.getRegistrationDate());
             return response;
         } else{
@@ -63,19 +65,20 @@ public class UserService {
     }
 
     public void updateUser(UserUpdateRequestDTO request) throws Exception {
-        UserEntity user = userRepository.findByCpf(request.getCpf());
+        UserEntity user = userRepository.findByLogin(request.getLogin());
         if(user != null) {
             validateRoleAndStatus(user.getRoleId(), user.getStatusId());
             user.setEmail(request.getEmail());
             user.setName(request.getName());
+            user.setPhone(request.getPhone());
             userRepository.save(user);
         } else {
             throw new Exception("User doesn't exists!");
         }
     }
 
-    public void deleteUser(String cpf) throws Exception {
-        UserEntity user = userRepository.findByCpf(cpf);
+    public void deleteUser(String login) throws Exception {
+        UserEntity user = userRepository.findByLogin(login);
         if(user != null) {
             validateRoleAndStatus(user.getRoleId(), user.getStatusId());
             userRepository.delete(user);
@@ -84,9 +87,8 @@ public class UserService {
         }
     }
 
-
     private void validateRoleAndStatus(Long roleId, Long statusId) throws Exception {
-        if(roleRepository.findById(roleId).isEmpty() || statusId == null){
+        if(roleRepository.findById(roleId).isEmpty() || statusRepository.findById(statusId).isEmpty()){
             throw new Exception("Role or status isn't valid");
         }
     }
