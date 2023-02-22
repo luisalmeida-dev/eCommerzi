@@ -1,49 +1,51 @@
 package com.example.sales.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TB_USER")
 public class UserEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "TB_USER", sequenceName = "TB_USER_SEQ", allocationSize = 1)
     @Column(name = "USER_ID")
     private Long id;
 
-    @Column(name = "CPF")
-    private String cpf;
-
     @Column(name = "NAME")
-    private String name;
+    private String login;
 
     @Column(name = "EMAIL")
+    private String name;
+
+    @Column(name = "LOGIN")
     private String email;
 
     @Column(name = "PASSWORD")
     private String password;
 
-    @JoinColumn(name = "STATUS_USER_ID")
+    @Column(name = "PHONE")
+    private String phone;
+
+    @Column(name = "STATUS_USER_ID")
     private Long statusId;
 
-    @JoinColumn(name = "ROLE_ID")
+    @Column(name = "ROLE_ID")
     private Long roleId;
 
-    public Long getStatusId() {
-        return statusId;
+    @Column(name = "REGISTRATION_DATE")
+    private LocalDateTime registrationDate;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setStatusId(Long statusId) {
-        this.statusId = statusId;
+    public String getLogin() {
+        return login;
     }
 
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getName() {
@@ -70,11 +72,35 @@ public class UserEntity {
         this.password = password;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Long getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(Long statusId) {
+        this.statusId = statusId;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(LocalDateTime registrationDate) {
+        this.registrationDate = registrationDate;
     }
 }
