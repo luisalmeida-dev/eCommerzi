@@ -3,8 +3,7 @@ package com.example.sales.service;
 import com.example.sales.dto.request.UserRequsetDTO;
 import com.example.sales.dto.request.UserUpdateRequestDTO;
 import com.example.sales.dto.response.UserResponseDTO;
-import com.example.sales.model.RoleEntity;
-import com.example.sales.model.StatusUserEntity;
+import com.example.sales.model.UserStatusEntity;
 import com.example.sales.model.UserEntity;
 import com.example.sales.repository.RoleRepository;
 import com.example.sales.repository.StatusRepository;
@@ -13,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -55,7 +51,7 @@ public class UserService {
         if(user != null){
             //TODO see how parsers work to remove hardcoded sets.
             UserResponseDTO response = new UserResponseDTO();
-            Optional<StatusUserEntity> status =  statusRepository.findById(user.getStatusId());
+            Optional<UserStatusEntity> status =  statusRepository.findById(user.getStatusId());
             status.ifPresent(statusUserEntity -> response.setStatus(statusUserEntity.getStatus()));
             response.setEmail(user.getEmail());
             response.setName(user.getName());
