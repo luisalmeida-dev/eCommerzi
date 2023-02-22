@@ -4,6 +4,7 @@ import com.example.sales.dto.request.CreateRoleRequestDTO;
 import com.example.sales.model.RoleEntity;
 import com.example.sales.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +15,10 @@ public class RoleController {
     private RoleService roleService;
 
     //TODO Remove createRole when every hole is created
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<?> createRole(@RequestBody CreateRoleRequestDTO role) throws Exception {
         roleService.createRole(role);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/{id}")

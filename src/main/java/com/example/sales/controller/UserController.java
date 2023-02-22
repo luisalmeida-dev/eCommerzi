@@ -16,9 +16,9 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody UserRequsetDTO request) throws Exception {
+    public ResponseEntity<HttpStatus> create(@RequestBody UserRequsetDTO request) throws Exception {
         userService.createUser(request);
-        return ResponseEntity.ok("The user was successfully created!");
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/{cpf}")

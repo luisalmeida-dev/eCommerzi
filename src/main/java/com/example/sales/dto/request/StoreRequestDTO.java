@@ -1,28 +1,11 @@
-package com.example.sales.model;
+package com.example.sales.dto.request;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "TB_STORE")
-public class StoreEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "TB_STORE", sequenceName = "TB_STORE_SEQ", allocationSize = 1)
-    @Column(name = "STORE_ID")
-    private Long id;
-
-    @Column(name = "USER_ID")
+public class StoreRequestDTO {
     private Long userId;
 
-    @Column(name = "NAME")
     private String name;
 
-    @Column(name = "CNPJ")
     private String cnpj;
-
-    public Long getId() {
-        return id;
-    }
 
     public Long getUserId() {
         return userId;
