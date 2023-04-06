@@ -1,6 +1,5 @@
 package com.example.sales.dto.response;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class UserResponseDTO {
@@ -9,6 +8,8 @@ public class UserResponseDTO {
     private String email;
 
     private String status;
+
+    private String phone;
 
     private LocalDateTime registrationDate;
 
@@ -34,6 +35,14 @@ public class UserResponseDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public LocalDateTime getRegistrationDate() {

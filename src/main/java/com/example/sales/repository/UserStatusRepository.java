@@ -2,6 +2,8 @@ package com.example.sales.repository;
 
 import com.example.sales.model.UserStatusEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface StatusRepository extends JpaRepository<UserStatusEntity, Long> {
+@Repository
+public interface UserStatusRepository extends JpaRepository<UserStatusEntity, Long> {
 }

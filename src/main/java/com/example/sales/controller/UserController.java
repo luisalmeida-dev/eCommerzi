@@ -23,7 +23,7 @@ public class UserController {
 
     @GetMapping("/{cpf}")
     public ResponseEntity<UserResponseDTO> getUser(@PathVariable String cpf) throws Exception {
-        return ResponseEntity.ok(userService.getUserByCpf(cpf));
+        return ResponseEntity.ok(userService.getUserByLogin(cpf));
     }
 
     @PutMapping
