@@ -6,7 +6,7 @@ import com.example.sales.dto.response.UserResponseDTO;
 import com.example.sales.model.UserStatusEntity;
 import com.example.sales.model.UserEntity;
 import com.example.sales.repository.RoleRepository;
-import com.example.sales.repository.StatusRepository;
+import com.example.sales.repository.UserStatusRepository;
 import com.example.sales.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,7 +24,7 @@ public class UserService {
     private RoleRepository roleRepository;
 
     @Autowired
-    private StatusRepository statusRepository;
+    private UserStatusRepository statusRepository;
 
     //TODO create a parser or mapper that transforms DTO's into entities vice versa
     public void createUser(UserRequsetDTO request) throws Exception {
@@ -53,7 +53,7 @@ public class UserService {
             //TODO see how parsers work to remove hardcoded sets.
             UserResponseDTO response = new UserResponseDTO();
             Optional<UserStatusEntity> status =  statusRepository.findById(user.getStatusId());
-            status.ifPresent(statusUserEntity -> response.setStatus(statusUserEntity.getStatus()));
+            status.ifPresent(statusUserEntity -> response.setStatus(statusUserEntity.getStatus())); //TODO alterar a forma que o statsu esta sendo validado
             response.setEmail(user.getEmail());
             response.setName(user.getName());
             response.setPhone(user.getPhone());

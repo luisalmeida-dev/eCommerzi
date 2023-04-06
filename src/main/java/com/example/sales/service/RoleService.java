@@ -24,6 +24,6 @@ public class RoleService {
 
     public ResponseEntity<RoleEntity> getRole(Long id) throws Exception {
         RoleEntity role = roleRepository.findById(id).orElseThrow(() -> new Exception("Role doesn't exist"));
-        return ResponseEntity.ok(role);
+        return ResponseEntity.ok(role); //TODO build responseEntity on controller instead of service
     }
 }
