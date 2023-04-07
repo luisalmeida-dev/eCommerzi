@@ -29,11 +29,11 @@ public class UserController {
     @PutMapping
     public ResponseEntity<String> update(@RequestBody UserUpdateRequestDTO requset) throws Exception {
         userService.updateUser(requset);
-        return ResponseEntity.ok("The user was successfully updated!");
+        return ResponseEntity.ok("The user was successfully updated!"); //TODO fazer retornar void
     }
 
     @DeleteMapping("/{cpf}")
-    public ResponseEntity<String> delete(@PathVariable String cpf) throws Exception {
+    public ResponseEntity<Void> delete(@PathVariable String cpf) throws Exception {
         userService.deleteUser(cpf);
         return ResponseEntity.ok().build();
     }

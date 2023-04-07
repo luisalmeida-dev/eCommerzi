@@ -1,6 +1,6 @@
 package com.example.sales.dto.request;
 
-public class CreateRoleRequestDTO {
+public class RoleRequestDTO {
     private String role;
 
     public String getRole() {

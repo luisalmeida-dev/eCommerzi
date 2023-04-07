@@ -1,6 +1,6 @@
 package com.example.sales.controller;
 
-import com.example.sales.dto.request.CreateRoleRequestDTO;
+import com.example.sales.dto.request.RoleRequestDTO;
 import com.example.sales.model.RoleEntity;
 import com.example.sales.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class RoleController {
 
     //TODO Remove createRole when every hole is created
     @PostMapping
-    public ResponseEntity<?> createRole(@RequestBody CreateRoleRequestDTO role) throws Exception {
+    public ResponseEntity<?> createRole(@RequestBody RoleRequestDTO role) throws Exception {
         roleService.createRole(role);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -25,4 +25,6 @@ public class RoleController {
     public ResponseEntity<RoleEntity> getRole(@PathVariable Long id) throws Exception {
         return roleService.getRole(id);
     }
+
+    //TODO create deleteRole, updateRole
 }

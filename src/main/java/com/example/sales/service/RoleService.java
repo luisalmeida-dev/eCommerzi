@@ -1,6 +1,6 @@
 package com.example.sales.service;
 
-import com.example.sales.dto.request.CreateRoleRequestDTO;
+import com.example.sales.dto.request.RoleRequestDTO;
 import com.example.sales.model.RoleEntity;
 import com.example.sales.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public void createRole(CreateRoleRequestDTO role) throws Exception {
+    public void createRole(RoleRequestDTO role) throws Exception {
         if (roleRepository.findByRole(role.getRole()) == null) {
             RoleEntity roleEntity = new RoleEntity();
             roleEntity.setRole(role.getRole());
