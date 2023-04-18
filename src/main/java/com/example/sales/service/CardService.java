@@ -3,6 +3,7 @@ package com.example.sales.service;
 import com.example.sales.dto.request.CardRequestDTO;
 import com.example.sales.dto.request.CardUpdateRequestDTO;
 import com.example.sales.dto.response.CardResponseDTO;
+import com.example.sales.mapper.CardMapper;
 import com.example.sales.model.CardEntity;
 import com.example.sales.model.UserEntity;
 import com.example.sales.repository.CardRepository;
@@ -12,11 +13,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CardService {
+
+    @Autowired
+    private CardMapper cardMapper;
+
     @Autowired
     private CardRepository cardRepository;
 
     @Autowired
     private UserRepository userRepository;
+
 
     public CardResponseDTO getCardById(Long id) throws Exception {
         CardEntity card = cardRepository.findById(id).orElseThrow(() -> new Exception("this card doesn't exists!"));
@@ -32,15 +38,8 @@ public class CardService {
         validateUser(request.getUserId());
         CardEntity card = cardRepository.findByUserIdAndCardNumber(request.getUserId(), request.getCardNumber());
         if (card == null) {
-            CardEntity entity = new CardEntity();
-            //TODO create a DTO to entity parser
-            entity.setCardNickname(request.getCardNickname());
-            entity.setCardNumber(request.getCardNumber());
-            entity.setCvv(request.getCvv());
-            entity.setName(request.getName());
-            entity.setExpirationDate(request.getExpirationDate());
-            entity.setUserId(request.getUserId());
-            cardRepository.save(entity);
+            card = cardMapper.toEntity(request);
+            cardRepository.save(card);
         } else {
             throw new Exception("This card is already registered!");
         }
