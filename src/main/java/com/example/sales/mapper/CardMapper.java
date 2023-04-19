@@ -1,6 +1,7 @@
 package com.example.sales.mapper;
 
 import com.example.sales.dto.request.CardRequestDTO;
+import com.example.sales.dto.response.CardResponseDTO;
 import com.example.sales.model.CardEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -16,5 +17,9 @@ public class CardMapper {
 
     public CardEntity toEntity(CardRequestDTO request) {
         return modelMapper.map(request, CardEntity.class);
+    }
+
+    public CardResponseDTO toDTO(CardEntity entity){
+        return modelMapper.map(entity, CardResponseDTO.class);
     }
 }
