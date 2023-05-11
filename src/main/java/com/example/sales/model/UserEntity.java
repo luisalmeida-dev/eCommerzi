@@ -13,13 +13,13 @@ public class UserEntity {
     private Long id;
 
     @Column(name = "NAME")
-    private String login;
-
-    @Column(name = "EMAIL")
     private String name;
 
-    @Column(name = "LOGIN")
+    @Column(name = "EMAIL")
     private String email;
+
+    @Column(name = "LOGIN")
+    private String login;
 
     @Column(name = "PASSWORD")
     private String password;

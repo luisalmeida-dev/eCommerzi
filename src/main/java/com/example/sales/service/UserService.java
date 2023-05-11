@@ -88,7 +88,7 @@ public class UserService {
     }
 
     private void validateRoleAndStatus(Long roleId, Long statusId) throws Exception {
-        if(roleRepository.findById(roleId).isEmpty() || statusRepository.findById(statusId).isEmpty()){
+        if(roleRepository.findById(roleId).isEmpty() || statusId == null){
             throw new Exception("Role or status isn't valid");
         }
     }

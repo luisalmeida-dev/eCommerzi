@@ -22,7 +22,7 @@ public class ProductEntity {
     private String sku;
 
     @Column(name = "DESCRIPTION")
-    private String desc;
+    private String description;
 
     @Column(name = "QUANTITY")
     private Integer quantity;
@@ -64,12 +64,12 @@ public class ProductEntity {
         this.sku = sku;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String desc) {
+        this.description = desc;
     }
 
     public Integer getQuantity() {
