@@ -1,7 +1,7 @@
 package com.example.sales.controller;
 
+import com.example.sales.dto.request.UserRequestDTO;
 import com.example.sales.dto.request.UserUpdateRequestDTO;
-import com.example.sales.dto.request.UserRequsetDTO;
 import com.example.sales.dto.response.UserResponseDTO;
 import com.example.sales.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +16,25 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<HttpStatus> create(@RequestBody UserRequsetDTO request) throws Exception {
+    public ResponseEntity<HttpStatus> create(@RequestBody UserRequestDTO request) throws Exception {
         userService.createUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/{cpf}")
-    public ResponseEntity<UserResponseDTO> getUser(@PathVariable String cpf) throws Exception {
-        return ResponseEntity.ok(userService.getUserByLogin(cpf));
+    @GetMapping("/{login}")
+    public ResponseEntity<UserResponseDTO> getUser(@PathVariable String login) throws Exception {
+        return ResponseEntity.ok(userService.getUserByLogin(login));
     }
 
     @PutMapping
-    public ResponseEntity<String> update(@RequestBody UserUpdateRequestDTO requset) throws Exception {
-        userService.updateUser(requset);
+    public ResponseEntity<String> update(@RequestBody UserUpdateRequestDTO request) throws Exception {
+        userService.updateUser(request);
         return ResponseEntity.ok("The user was successfully updated!"); //TODO fazer retornar void
     }
 
-    @DeleteMapping("/{cpf}")
-    public ResponseEntity<Void> delete(@PathVariable String cpf) throws Exception {
-        userService.deleteUser(cpf);
+    @DeleteMapping("/{login}")
+    public ResponseEntity<Void> delete(@PathVariable String login) throws Exception {
+        userService.deleteUser(login);
         return ResponseEntity.ok().build();
     }
 }

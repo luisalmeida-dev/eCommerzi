@@ -28,8 +28,7 @@ public class CardService {
     public CardResponseDTO getCardById(Long id) throws Exception {
         CardEntity card = cardRepository.findById(id).orElseThrow(() -> new Exception("this card doesn't exists!"));
         validateUser(card.getUserId());
-        CardResponseDTO response = cardMapper.toDTO(card);
-        return response;
+        return cardMapper.toDTO(card);
     }
 
     public void createCard(CardRequestDTO request) throws Exception {
@@ -67,7 +66,7 @@ public class CardService {
 
     private void validateUser(Long userId) throws Exception {
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> new Exception("This user was not found!"));
-        if (user == null || user.getStatusId() == null || user.getRoleId() == null) {
+        if (user == null || user.getUserStatus() == null || user.getRole() == null) {
             throw new Exception("This user is invalid, please check user situation for more details!");
         }
     }

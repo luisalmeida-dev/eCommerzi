@@ -1,8 +1,11 @@
 package com.example.sales.model;
 
+import com.example.sales.Enum.OrderStatusEnum;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "TB_ORDER")
@@ -16,8 +19,8 @@ public class OrderEntity {
     @Column(name = "TOTAL")
     private BigDecimal total;
 
-    @Column(name = "PAYMENT_ID")
-    private Long paymentId;
+    @Column(name = "PAYMENT_DETAILS_ID")
+    private Long paymentDetailsId;
 
     @Column(name = "PRODUCT_ID")
     private Long productId;
@@ -35,10 +38,16 @@ public class OrderEntity {
     private BigDecimal shippingPrice;
 
     @Column(name = "ORDER_STATUS_ID")
-    private Long orderStatusId;
+    private OrderStatusEnum orderStatus;
 
     @Column(name = "REGISTRATION_DT")
     private LocalDateTime registrationDate;
+
+    @Column(name = "DELIVERY_DATE")
+    private Date deliveryDate;
+
+    @Column(name = "TRACKING_NUMBER")
+    private String trackingNumber;
 
     public Long getId() {
         return id;
@@ -52,12 +61,12 @@ public class OrderEntity {
         this.total = total;
     }
 
-    public Long getPaymentId() {
-        return paymentId;
+    public Long getPaymentDetailsId() {
+        return paymentDetailsId;
     }
 
-    public void setPaymentId(Long paymentId) {
-        this.paymentId = paymentId;
+    public void setPaymentDetailsId(Long paymentDetailsId) {
+        this.paymentDetailsId = paymentDetailsId;
     }
 
     public Long getProductId() {
@@ -100,12 +109,12 @@ public class OrderEntity {
         this.shippingPrice = shippingPrice;
     }
 
-    public Long getOrderStatusId() {
-        return orderStatusId;
+    public OrderStatusEnum getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOrderStatusId(Long orderStatusId) {
-        this.orderStatusId = orderStatusId;
+    public void setOrderStatus(OrderStatusEnum orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public LocalDateTime getRegistrationDate() {
@@ -114,5 +123,21 @@ public class OrderEntity {
 
     public void setRegistrationDate(LocalDateTime registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public Date getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(Date deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public String getTrackingNumber() {
+        return trackingNumber;
+    }
+
+    public void setTrackingNumber(String trackingNumber) {
+        this.trackingNumber = trackingNumber;
     }
 }

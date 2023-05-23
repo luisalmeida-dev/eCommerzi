@@ -21,8 +21,8 @@ public class ProductMapper {
         return modelMapper.map(request, ProductEntity.class);
     }
 
-    public ProductResponseDTO toProductResponseDTO(ProductEntity request) {
-        return modelMapper.map(request, ProductResponseDTO.class);
+    public ProductResponseDTO toProductResponseDTO(ProductEntity entity) {
+        return modelMapper.map(entity, ProductResponseDTO.class);
     }
 
     public ProductEntity productUpdateDTOtoEntity(ProductUpdateRequestDTO request) {

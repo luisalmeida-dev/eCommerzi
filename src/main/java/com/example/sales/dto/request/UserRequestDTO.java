@@ -1,6 +1,9 @@
 package com.example.sales.dto.request;
 
-public class UserRequsetDTO {
+import com.example.sales.Enum.RolesEnum;
+import com.example.sales.Enum.UserStatusEnum;
+
+public class UserRequestDTO {
 
     private String name;
 
@@ -12,9 +15,9 @@ public class UserRequsetDTO {
 
     private String phone;
 
-    private Long statusId;
+    private UserStatusEnum userStatus;
 
-    private Long roleId;
+    private RolesEnum role;
 
     public String getName() {
         return name;
@@ -56,19 +59,19 @@ public class UserRequsetDTO {
         this.phone = phone;
     }
 
-    public Long getStatusId() {
-        return statusId;
+    public UserStatusEnum getUserStatus() {
+        return userStatus;
     }
 
-    public void setStatusId(Long statusId) {
-        this.statusId = statusId;
+    public void setUserStatus(UserStatusEnum userStatus) {
+        this.userStatus = userStatus;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public RolesEnum getRole() {
+        return role;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setRole(RolesEnum role) {
+        this.role = role;
     }
 }

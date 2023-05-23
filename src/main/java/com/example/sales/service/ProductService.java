@@ -65,7 +65,7 @@ public class ProductService {
         validateUser(userId);
         ProductEntity product = productRepository.findByIdAndUserId(productId, userId);
         if (product != null) {
-            product = productMapper.productUpdateDTOtoEntity(request); //TODO ver se muda somente campos preenchidos.
+            product = productMapper.productUpdateDTOtoEntity(request);
             productRepository.save(product);
         } else {
             throw new Exception("This product isn't registered!");
@@ -75,7 +75,7 @@ public class ProductService {
     //TODO ver uma forma de fazer essa validacao em apenas em um lugar e poder ser utilizada em outros locais
     private void validateUser(Long userId) throws Exception {
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> new Exception("This user was not found!"));
-        if (user == null || user.getStatusId() == null || user.getRoleId() == null) {
+        if (user == null || user.getUserStatus() == null || user.getRole() == null) {
             throw new Exception("This user is invalid, please check user situation for more details!");
         }
     }

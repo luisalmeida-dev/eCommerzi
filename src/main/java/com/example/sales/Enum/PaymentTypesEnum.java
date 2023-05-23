@@ -1,5 +1,5 @@
 package com.example.sales.Enum;
 
-public enum PaymentMethodsEnum {
+public enum PaymentTypesEnum {
     DEBIT, CREDIT, MONEY, PIX
 }

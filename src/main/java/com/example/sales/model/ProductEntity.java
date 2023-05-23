@@ -1,5 +1,7 @@
 package com.example.sales.model;
 
+import com.example.sales.Enum.CategoryEnum;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -30,8 +32,8 @@ public class ProductEntity {
     @Column(name = "DISCOUNT_ID")
     private Long discountId;
 
-    @Column(name = "CATEGORY_ID")
-    private Long categoryId;
+    @Column(name = "CATEGORY")
+    private CategoryEnum category;
 
     @Column(name = "USER_ID")
     private Long userId;
@@ -88,12 +90,12 @@ public class ProductEntity {
         this.discountId = discountId;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public CategoryEnum getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(CategoryEnum category) {
+        this.category = category;
     }
 
     public Long getUserId() {

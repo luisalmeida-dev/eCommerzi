@@ -1,5 +1,7 @@
 package com.example.sales.model;
 
+import com.example.sales.Enum.PaymentTypesEnum;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,8 +13,8 @@ public class PaymentDetailsEntity {
     @Column(name = "PAYMENT_DETAILS_ID")
     private Long id;
 
-    @Column(name = "PAYMENT_TYPE_ID")
-    private Long paymentTypeId;
+    @Column(name = "PAYMENT_TYPE")
+    private PaymentTypesEnum paymentType;
 
     @Column(name = "CARD_ID")
     private Long cardId;
@@ -21,12 +23,16 @@ public class PaymentDetailsEntity {
         return id;
     }
 
-    public Long getPaymentTypeId() {
-        return paymentTypeId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setPaymentTypeId(Long paymentTypeId) {
-        this.paymentTypeId = paymentTypeId;
+    public PaymentTypesEnum getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentTypesEnum paymentType) {
+        this.paymentType = paymentType;
     }
 
     public Long getCardId() {

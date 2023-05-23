@@ -27,11 +27,11 @@ public class UserEntity {
     @Column(name = "PHONE")
     private String phone;
 
-    @Column(name = "STATUS_USER_ID")
-    private Long statusId;
+    @Column(name = "USER_STATUS")
+    private String userStatus;
 
-    @Column(name = "ROLE_ID")
-    private Long roleId;
+    @Column(name = "ROLE")
+    private String role;
 
     @Column(name = "REGISTRATION_DATE")
     private LocalDateTime registrationDate;
@@ -80,20 +80,20 @@ public class UserEntity {
         this.phone = phone;
     }
 
-    public Long getStatusId() {
-        return statusId;
+    public String getUserStatus() {
+        return userStatus;
     }
 
-    public void setStatusId(Long statusId) {
-        this.statusId = statusId;
+    public void setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public LocalDateTime getRegistrationDate() {
