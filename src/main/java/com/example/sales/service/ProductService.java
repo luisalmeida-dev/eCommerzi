@@ -29,7 +29,7 @@ public class ProductService {
     public List<ProductResponseDTO> getAllProductsByUser(Long userId) throws Exception {
         validateUser(userId);
         List<ProductEntity> productList = productRepository.findAllByUserId(userId);
-        if (!productList.isEmpty()) {
+        if (!productList.isEmpty()) { //TODO Usar conceitas de programacao funcional para melhorar esse metodo
             List<ProductResponseDTO> responseList = new ArrayList<>();
             for(ProductEntity product : productList){
                 ProductResponseDTO response = productMapper.toProductResponseDTO(product);

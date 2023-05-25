@@ -2,22 +2,31 @@ package com.example.sales.service;
 
 import com.example.sales.Enum.RolesEnum;
 import com.example.sales.Enum.UserStatusEnum;
+import com.example.sales.dto.request.AddressRequestDTO;
 import com.example.sales.dto.request.UserRequestDTO;
 import com.example.sales.dto.request.UserUpdateRequestDTO;
+import com.example.sales.dto.response.AddressResponseDTO;
 import com.example.sales.dto.response.UserResponseDTO;
 import com.example.sales.mapper.UserMapper;
+import com.example.sales.model.AddressEntity;
 import com.example.sales.model.UserEntity;
+import com.example.sales.repository.AddressRepository;
 import com.example.sales.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
 
     @Autowired
     private UserMapper userMapper;
@@ -26,7 +35,7 @@ public class UserService {
         if (userRepository.findByLogin(request.getLogin()) == null) {
             LocalDateTime dateTime = LocalDateTime.now();
             validateRoleAndStatus(request.getRole().name(), request.getUserStatus().name());
-            UserEntity userEntity = userMapper.userRequestDTOtoEntity(request);
+            UserEntity userEntity = userMapper.toUserEntity(request);
             userEntity.setRegistrationDate(dateTime);
             userRepository.save(userEntity);
         } else {
@@ -66,6 +75,35 @@ public class UserService {
         }
     }
 
+    public void addAddress(AddressRequestDTO request) throws Exception {
+        UserEntity user = userRepository.findById(request.getUserId()).orElseThrow(() -> new Exception("This user was not found!"));
+        validateRoleAndStatus(user.getRole(), user.getUserStatus());
+        AddressEntity address = userMapper.addressRequestDTOtoEntity(request);
+        addressRepository.save(address);
+    }
+
+    public List<AddressResponseDTO> getAllAddressesByUser(Long userId) throws Exception {
+        userRepository.findById(userId).orElseThrow(() -> new Exception("User Not Found!"));
+        List<AddressEntity> addressList = addressRepository.findAllByUserId(userId);
+        if (!addressList.isEmpty()) {
+            return addressList.stream()
+                    .map(userMapper::addressEntityToDTO)
+                    .collect(Collectors.toList());
+        } else {
+            throw new Exception("No address is registered to this user!");
+        }
+    }
+
+    public void deleteAddress(Long userId, String zipcode) throws Exception {
+        userRepository.findById(userId).orElseThrow(() -> new Exception("User Not Found!"));
+        AddressEntity address = addressRepository.findByUserIdAndZipcode(userId, zipcode);
+        if (address != null) {
+            addressRepository.delete(address);
+        } else {
+            throw new Exception("This address is not registered on our database!");
+        }
+    }
+
     //TODO corrigir resposta quando o status ou role passado nao existe (esta retornando um 404)
     private void validateRoleAndStatus(String role, String userStatus) throws Exception { //TODO vai ser subsittuida por uma authorization com spring security
         if (userStatus.equals(UserStatusEnum.ACTIVE.name())) {
@@ -78,4 +116,5 @@ public class UserService {
             throw new Exception("The user status isn't valid!");
         }
     }
+
 }
