@@ -52,7 +52,7 @@ public class ProductService {
     }
 
     public void createProduct(ProductRequestDTO request) throws Exception {
-        validateUser(request.getUserId());
+        validateUser(request.getUserId()); //TODO validar se o produto vai ter desconto e se o id dele eh valido
         if (productRepository.findBySku(request.getSku()) == null) {
             ProductEntity product = productMapper.toProductEntity(request);
             productRepository.save(product);

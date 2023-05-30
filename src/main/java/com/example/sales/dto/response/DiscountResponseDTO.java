@@ -1,46 +1,24 @@
-package com.example.sales.model;
+package com.example.sales.dto.response;
 
-import javax.persistence.*;
+import com.example.sales.Enum.DiscountStatusEnum;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table(name = "TB_DISCOUNT")
-public class DiscountEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "TB_DISCOUNT", sequenceName = "TB_DISCOUNT_SEQ", allocationSize = 1)
-    @Column(name = "DISCOUNT_ID")
+public class DiscountResponseDTO {
     private Long id;
-
-    @Column(name = "USER_ID")
-    private Long userId;
-
-    @Column(name = "NAME")
     private String name;
-
-    @Column(name = "DESCRIPTION")
     private String description;
-
-    @Column(name = "DISCOUNT_PERCENTAGE")
     private BigDecimal discountPercentage;
-
-    @Column(name = "DISCOUNT_STATUS")
-    private String discountStatus;
-
-    @Column(name = "EXPIRATION_DT")
+    private DiscountStatusEnum discountStatus;
     private Date expirationDate;
 
     public Long getId() {
         return id;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -55,8 +33,8 @@ public class DiscountEntity {
         return description;
     }
 
-    public void setDescription(String desc) {
-        this.description = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public BigDecimal getDiscountPercentage() {
@@ -67,11 +45,11 @@ public class DiscountEntity {
         this.discountPercentage = discountPercentage;
     }
 
-    public String getDiscountStatus() {
+    public DiscountStatusEnum getDiscountStatus() {
         return discountStatus;
     }
 
-    public void setDiscountStatus(String discountStatus) {
+    public void setDiscountStatus(DiscountStatusEnum discountStatus) {
         this.discountStatus = discountStatus;
     }
 
