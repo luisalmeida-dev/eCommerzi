@@ -18,7 +18,7 @@ public class DiscountController {
     private DiscountService discountService;
 
     @PostMapping
-    ResponseEntity<HttpStatus> create(@RequestBody DiscountRequestDTO request) throws Exception { //TODO Adicionar validacao do id de usuario && salvar o nome do status na base(mudar para string).
+    ResponseEntity<HttpStatus> create(@RequestBody DiscountRequestDTO request) throws Exception {
         discountService.createDiscount(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

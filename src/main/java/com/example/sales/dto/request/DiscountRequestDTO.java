@@ -1,5 +1,6 @@
 package com.example.sales.dto.request;
 
+import com.example.sales.Enum.CategoryEnum;
 import com.example.sales.Enum.DiscountStatusEnum;
 
 import java.math.BigDecimal;
@@ -12,6 +13,8 @@ public class DiscountRequestDTO {
     private DiscountStatusEnum discountStatus;
     private Date expirationDate;
     private Long userId;
+    private CategoryEnum category;
+    private String code;
 
     public String getName() {
         return name;
@@ -59,5 +62,21 @@ public class DiscountRequestDTO {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public CategoryEnum getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEnum category) {
+        this.category = category;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

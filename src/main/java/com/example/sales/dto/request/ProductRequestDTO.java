@@ -1,5 +1,7 @@
 package com.example.sales.dto.request;
 
+import com.example.sales.Enum.CategoryEnum;
+
 import java.math.BigDecimal;
 
 public class ProductRequestDTO {
@@ -8,8 +10,7 @@ public class ProductRequestDTO {
     private String sku;
     private String description;
     private Integer quantity;
-    private Long discountId;
-    private Long categoryId;
+    private CategoryEnum category;
     private Long userId;
 
     public String getName() {
@@ -52,20 +53,12 @@ public class ProductRequestDTO {
         this.quantity = quantity;
     }
 
-    public Long getDiscountId() {
-        return discountId;
+    public CategoryEnum getCategory() {
+        return category;
     }
 
-    public void setDiscountId(Long discountId) {
-        this.discountId = discountId;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(CategoryEnum category) {
+        this.category = category;
     }
 
     public Long getUserId() {

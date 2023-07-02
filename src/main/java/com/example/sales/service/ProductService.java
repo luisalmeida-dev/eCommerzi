@@ -11,8 +11,8 @@ import com.example.sales.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -29,13 +29,10 @@ public class ProductService {
     public List<ProductResponseDTO> getAllProductsByUser(Long userId) throws Exception {
         validateUser(userId);
         List<ProductEntity> productList = productRepository.findAllByUserId(userId);
-        if (!productList.isEmpty()) { //TODO Usar conceitas de programacao funcional para melhorar esse metodo
-            List<ProductResponseDTO> responseList = new ArrayList<>();
-            for(ProductEntity product : productList){
-                ProductResponseDTO response = productMapper.toProductResponseDTO(product);
-                responseList.add(response);
-            }
-            return responseList;
+        if (!productList.isEmpty()) {
+            return productList.stream()
+                    .map(productMapper::toProductResponseDTO)
+                    .collect(Collectors.toList());
         } else {
             throw new Exception("There's no product registered to this user!");
         }
@@ -52,7 +49,7 @@ public class ProductService {
     }
 
     public void createProduct(ProductRequestDTO request) throws Exception {
-        validateUser(request.getUserId()); //TODO validar se o produto vai ter desconto e se o id dele eh valido
+        validateUser(request.getUserId());
         if (productRepository.findBySku(request.getSku()) == null) {
             ProductEntity product = productMapper.toProductEntity(request);
             productRepository.save(product);

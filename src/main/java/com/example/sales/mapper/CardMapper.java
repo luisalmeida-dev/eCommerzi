@@ -19,7 +19,7 @@ public class CardMapper {
         return modelMapper.map(request, CardEntity.class);
     }
 
-    public CardResponseDTO toDTO(CardEntity entity){
+    public CardResponseDTO toDTO(CardEntity entity) {
         return modelMapper.map(entity, CardResponseDTO.class);
     }
 }

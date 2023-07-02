@@ -50,10 +50,8 @@ public class DiscountService {
         discountRepository.delete(discount);
     }
 
-    //TODO Corrigir: Quando cadastramos um disconto igual, so que para outro usuario ele tbm esta bloqueando.
-    /**/
-
-    public void updateDiscountById(DiscountUpdateRequestDTO request, Long discountId) { //TODO corrigir porque nao esta alterando o disconto, ver como ta o update de produto
+    //TODO Corrigir: Quando cadastramos um disconto igual, so que para outro usuario ele tbm esta bloqueando. (Isso vai ser corrigido quando tivermos o userId no jwt)
+    public void updateDiscountById(DiscountUpdateRequestDTO request, Long discountId) {
         DiscountEntity discount = discountRepository.findById(discountId).orElseThrow(() -> new EntityNotFoundException("Discount Not Found!"));
         discountMapper.updateRequestDTOtoEntity(request, discount);
         discountRepository.save(discount);

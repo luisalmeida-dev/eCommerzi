@@ -11,6 +11,9 @@ import com.example.sales.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CardService {
 
@@ -23,8 +26,18 @@ public class CardService {
     @Autowired
     private UserRepository userRepository;
 
+    public List<CardResponseDTO> getAllCardsByUser(Long userId) throws Exception {
+        validateUser(userId);
+        List<CardEntity> cardList = cardRepository.findAllByUserId(userId);
+        if (!cardList.isEmpty()) {
+            return cardList.stream()
+                    .map(cardMapper::toDTO)
+                    .collect(Collectors.toList());
+        } else {
+            throw new Exception("There is no card registered to this user!");
+        }
+    }
 
-    //TODO retornar uma lista de cartoes pelo userId
     public CardResponseDTO getCardById(Long id) throws Exception {
         CardEntity card = cardRepository.findById(id).orElseThrow(() -> new Exception("this card doesn't exists!"));
         validateUser(card.getUserId());

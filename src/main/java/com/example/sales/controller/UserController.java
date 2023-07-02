@@ -31,9 +31,9 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<String> update(@RequestBody UserUpdateRequestDTO request) throws Exception {
+    public ResponseEntity<HttpStatus> update(@RequestBody UserUpdateRequestDTO request) throws Exception {
         userService.updateUser(request);
-        return ResponseEntity.ok("The user was successfully updated!"); //TODO fazer retornar void
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{login}") //TODO alterar para deletar todas as informacoes que fazem referencia ao usuario(tabelas que utilizam o userId)

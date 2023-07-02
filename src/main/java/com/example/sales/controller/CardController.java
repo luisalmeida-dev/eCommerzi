@@ -9,16 +9,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/card")
 public class CardController {
     @Autowired
     private CardService cardService;
 
-    //TODO validate if getCard will stay here or got userController && users will be able to register more than one card, so it must return a list of cards.
     @GetMapping("/{userId}")
-    public ResponseEntity<CardResponseDTO> getCard(@PathVariable Long userId) throws Exception {
-        return ResponseEntity.ok(cardService.getCardById(userId));
+    public ResponseEntity<List<CardResponseDTO>> getAllCardsByUser(@PathVariable Long userId) throws Exception {
+        return ResponseEntity.ok(cardService.getAllCardsByUser(userId));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CardResponseDTO> getCard(@PathVariable Long id) throws Exception {
+        return ResponseEntity.ok(cardService.getCardById(id));
     }
 
     @PostMapping
