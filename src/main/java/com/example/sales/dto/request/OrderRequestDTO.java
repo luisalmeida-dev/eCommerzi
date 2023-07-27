@@ -1,61 +1,23 @@
-package com.example.sales.model;
+package com.example.sales.dto.request;
 
 import com.example.sales.Enum.OrderStatusEnum;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Entity
-@Table(name = "TB_ORDER")
-public class OrderEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "TB_ORDER", sequenceName = "TB_ORDER_SEQ", allocationSize = 1)
-    @Column(name = "ORDER_ID")
-    private Long id;
-
-    @Column(name = "TOTAL")
+public class OrderRequestDTO {
     private BigDecimal total;
-
-    @Column(name = "PAYMENT_DETAILS_ID")
     private Long paymentDetailsId;
-
-    @Column(name = "PRODUCT_ID")
     private Long productId;
-
-    @Column(name = "SELLER_ID")
     private Long sellerId;
-
-    @Column(name = "BUYER_ID")
     private Long buyerId;
-
-    @Column(name = "CARRIER_ID")
     private Long carrierId;
-
-    @Column(name = "SHIPPING_PRICE")
     private BigDecimal shippingPrice;
-
-    @Column(name = "ORDER_STATUS_ID")
     private OrderStatusEnum orderStatus;
-
-    @Column(name = "REGISTRATION_DT")
     private Date registrationDate;
-
-    @Column(name = "DELIVERY_DATE")
     private LocalDateTime deliveryDate;
-
-    @Column(name = "TRACKING_NUMBER")
     private String trackingNumber;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public BigDecimal getTotal() {
         return total;
