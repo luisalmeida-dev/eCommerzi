@@ -1,10 +1,12 @@
 package com.example.sales.service;
 
+import com.example.sales.Enum.RolesEnum;
 import com.example.sales.dto.request.DiscountRequestDTO;
 import com.example.sales.dto.request.DiscountUpdateRequestDTO;
 import com.example.sales.dto.response.DiscountResponseDTO;
 import com.example.sales.mapper.DiscountMapper;
 import com.example.sales.model.DiscountEntity;
+import com.example.sales.model.UserEntity;
 import com.example.sales.repository.DiscountRepository;
 import com.example.sales.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ public class DiscountService {
     private DiscountMapper discountMapper;
 
     public void createDiscount(DiscountRequestDTO request) throws Exception { //TODO adicionar validacao de usuario com jwt
+        validateUser(request.getUserId());
         if (!discountRepository.existsByNameAndUserId(request.getName(), request.getUserId())) {
             DiscountEntity discount = discountMapper.discountRequestDTOtoEntity(request);
             discountRepository.save(discount);
@@ -35,6 +38,7 @@ public class DiscountService {
     }
 
     public List<DiscountResponseDTO> getAllDiscountsByUser(Long userId) throws Exception {
+        validateUser(userId);
         if (userRepository.existsById(userId)) {
             List<DiscountEntity> discountList = discountRepository.findAllByUserId(userId);
             return discountList.stream()
@@ -55,5 +59,17 @@ public class DiscountService {
         DiscountEntity discount = discountRepository.findById(discountId).orElseThrow(() -> new EntityNotFoundException("Discount Not Found!"));
         discountMapper.updateRequestDTOtoEntity(request, discount);
         discountRepository.save(discount);
+    }
+
+    public void deleteAllDiscounts(Long userId) throws Exception {
+        validateUser(userId);
+        discountRepository.deleteAllByUserId(userId);
+    }
+
+    public void validateUser(Long userId) throws Exception {
+        UserEntity user = userRepository.findById(userId).orElseThrow(() -> new Exception("User Not Found!"));
+        if (!user.getRole().equals(RolesEnum.STORE)) {
+            throw new Exception("This user can't create a discount");
+        }
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface DiscountRepository extends JpaRepository<DiscountEntity, Long> {
     Boolean existsByNameAndUserId(String name, Long userId);
-
+    DiscountEntity findByIdAndUserId(Long discountId, Long userId);
     List<DiscountEntity> findAllByUserId(Long userId);
+    void deleteAllByUserId(Long userId);
 }

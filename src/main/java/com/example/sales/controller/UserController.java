@@ -36,7 +36,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{login}") //TODO alterar para deletar todas as informacoes que fazem referencia ao usuario(tabelas que utilizam o userId)
+    @DeleteMapping("/{login}")
     public ResponseEntity<Void> delete(@PathVariable String login) throws Exception { //TODO colocar validacao de usuario com spring security, para validar se o usuario que quer deletar a conta eh o mesmo que ta fazendo o request
         userService.deleteUser(login);
         return ResponseEntity.ok().build();

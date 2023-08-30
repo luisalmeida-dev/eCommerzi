@@ -13,4 +13,6 @@ public interface CardRepository extends JpaRepository<CardEntity, Long> {
     CardEntity findByUserIdAndCardNumber(Long id, String cardNumber);
 
     CardEntity findByIdAndUserId(Long cardId, Long userId);
+
+    void deleteAllByUserId(Long userId);
 }

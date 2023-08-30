@@ -8,9 +8,11 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
-    public ProductEntity findBySku(String sku);
+     ProductEntity findBySku(String sku);
 
-    public ProductEntity findByIdAndUserId(Long id, Long userId);
+     ProductEntity findByIdAndUserId(Long id, Long userId);
 
-    public List<ProductEntity> findAllByUserId(Long userId);
+     List<ProductEntity> findAllByUserId(Long userId);
+
+     void deleteAllByUserId(Long userId);
 }

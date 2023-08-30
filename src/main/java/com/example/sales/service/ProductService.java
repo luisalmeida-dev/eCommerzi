@@ -69,6 +69,11 @@ public class ProductService {
         }
     }
 
+    public void deleteAllProducts(Long userId) throws Exception {
+        validateUser(userId);
+        productRepository.deleteAllByUserId(userId);
+    }
+
     //TODO ver uma forma de fazer essa validacao em apenas em um lugar e poder ser utilizada em outros locais
     private void validateUser(Long userId) throws Exception {
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> new Exception("This user was not found!"));

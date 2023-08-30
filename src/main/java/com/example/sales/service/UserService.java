@@ -29,6 +29,15 @@ public class UserService {
     private AddressRepository addressRepository;
 
     @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private DiscountService discountService;
+
+    @Autowired
+    private CardService cardService;
+
+    @Autowired
     private UserMapper userMapper;
 
     public void createUser(UserRequestDTO request) throws Exception {
@@ -55,7 +64,7 @@ public class UserService {
     public void updateUser(UserUpdateRequestDTO request) throws Exception {
         UserEntity user = userRepository.findByLogin(request.getLogin());
         if (user != null) {
-            validateRoleAndStatus(user.getRole(), user.getUserStatus());
+            validateRoleAndStatus(user.getRole().name(), user.getUserStatus().name());
             user.setEmail(request.getEmail());
             user.setName(request.getName());
             user.setPhone(request.getPhone());
@@ -68,7 +77,8 @@ public class UserService {
     public void deleteUser(String login) throws Exception {
         UserEntity user = userRepository.findByLogin(login);
         if (user != null) {
-            validateRoleAndStatus(user.getRole(), user.getUserStatus());
+            validateRoleAndStatus(user.getRole().name(), user.getUserStatus().name());
+            delete(user.getId());
             userRepository.delete(user);
         } else {
             throw new UsernameNotFoundException("user doesn't exists!");
@@ -77,7 +87,7 @@ public class UserService {
 
     public void addAddress(AddressRequestDTO request) throws Exception {
         UserEntity user = userRepository.findById(request.getUserId()).orElseThrow(() -> new Exception("This user was not found!"));
-        validateRoleAndStatus(user.getRole(), user.getUserStatus());
+        validateRoleAndStatus(user.getRole().name(), user.getUserStatus().name());
         AddressEntity address = userMapper.addressRequestDTOtoEntity(request);
         addressRepository.save(address);
     }
@@ -117,4 +127,10 @@ public class UserService {
         }
     }
 
+    private void delete(Long userId) throws Exception {
+        productService.deleteAllProducts(userId);
+        discountService.deleteAllDiscounts(userId);
+        cardService.deleteAllCards(userId);
+        addressRepository.deleteAllByUserId(userId);
+    }
 }

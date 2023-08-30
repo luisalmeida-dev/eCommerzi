@@ -11,4 +11,6 @@ public interface AddressRepository extends JpaRepository<AddressEntity, Long> {
     List<AddressEntity> findAllByUserId(Long userId);
 
     AddressEntity findByUserIdAndZipcode(Long userId, String zipcode);
+
+    void deleteAllByUserId(Long userId);
 }

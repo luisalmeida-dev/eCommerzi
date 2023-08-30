@@ -60,6 +60,7 @@ public class CardService {
         CardEntity card = cardRepository.findByIdAndUserId(cardId, userId);
         if (card != null) {
             cardRepository.delete(card);
+
         } else {
             throw new Exception("The card you're trying to delete doesnt' exist!");
         }
@@ -76,6 +77,10 @@ public class CardService {
         }
     }
 
+    public void deleteAllCards(Long userId) throws Exception {
+        validateUser(userId);
+        cardRepository.deleteAllByUserId(userId);
+    }
 
     private void validateUser(Long userId) throws Exception {
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> new Exception("This user was not found!"));

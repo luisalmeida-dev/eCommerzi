@@ -1,5 +1,8 @@
 package com.example.sales.model;
 
+import com.example.sales.Enum.CategoryEnum;
+import com.example.sales.Enum.DiscountStatusEnum;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -22,14 +25,16 @@ public class DiscountEntity {
     @Column(name = "DISCOUNT_PERCENTAGE")
     private BigDecimal discountPercentage;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "DISCOUNT_STATUS")
-    private String discountStatus;
+    private DiscountStatusEnum discountStatus;
 
     @Column(name = "EXPIRATION_DT")
     private Date expirationDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "CATEGORY")
-    private String category;
+    private CategoryEnum category;
 
     @Column(name = "CODE")
     private String code;
@@ -62,11 +67,11 @@ public class DiscountEntity {
         this.discountPercentage = discountPercentage;
     }
 
-    public String getDiscountStatus() {
+    public DiscountStatusEnum getDiscountStatus() {
         return discountStatus;
     }
 
-    public void setDiscountStatus(String discountStatus) {
+    public void setDiscountStatus(DiscountStatusEnum discountStatus) {
         this.discountStatus = discountStatus;
     }
 
@@ -78,11 +83,11 @@ public class DiscountEntity {
         this.expirationDate = expirationDate;
     }
 
-    public String getCategory() {
+    public CategoryEnum getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(CategoryEnum category) {
         this.category = category;
     }
 

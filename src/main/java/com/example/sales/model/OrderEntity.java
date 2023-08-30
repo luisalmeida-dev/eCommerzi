@@ -1,6 +1,7 @@
 package com.example.sales.model;
 
 import com.example.sales.Enum.OrderStatusEnum;
+import com.example.sales.Enum.PaymentTypesEnum;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,8 +20,9 @@ public class OrderEntity {
     @Column(name = "TOTAL")
     private BigDecimal total;
 
-    @Column(name = "PAYMENT_DETAILS_ID")
-    private Long paymentDetailsId;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "PAYMENT_TYPE")
+    private PaymentTypesEnum paymentType;
 
     @Column(name = "PRODUCT_ID")
     private Long productId;
@@ -37,6 +39,7 @@ public class OrderEntity {
     @Column(name = "SHIPPING_PRICE")
     private BigDecimal shippingPrice;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "ORDER_STATUS_ID")
     private OrderStatusEnum orderStatus;
 
@@ -48,6 +51,25 @@ public class OrderEntity {
 
     @Column(name = "TRACKING_NUMBER")
     private String trackingNumber;
+
+    @Column(name = "CARD_ID")
+    private Long cardId;
+
+    public Long getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
+    }
+
+    public PaymentTypesEnum getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentTypesEnum paymentType) {
+        this.paymentType = paymentType;
+    }
 
     public Long getId() {
         return id;
@@ -63,14 +85,6 @@ public class OrderEntity {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
-    }
-
-    public Long getPaymentDetailsId() {
-        return paymentDetailsId;
-    }
-
-    public void setPaymentDetailsId(Long paymentDetailsId) {
-        this.paymentDetailsId = paymentDetailsId;
     }
 
     public Long getProductId() {

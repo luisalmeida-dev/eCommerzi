@@ -1,5 +1,8 @@
 package com.example.sales.model;
 
+import com.example.sales.Enum.RolesEnum;
+import com.example.sales.Enum.UserStatusEnum;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -27,11 +30,13 @@ public class UserEntity {
     @Column(name = "PHONE")
     private String phone;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "USER_STATUS")
-    private String userStatus;
+    private UserStatusEnum userStatus;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "ROLE")
-    private String role;
+    private RolesEnum role;
 
     @Column(name = "REGISTRATION_DATE")
     private LocalDateTime registrationDate;
@@ -80,19 +85,19 @@ public class UserEntity {
         this.phone = phone;
     }
 
-    public String getUserStatus() {
+    public UserStatusEnum getUserStatus() {
         return userStatus;
     }
 
-    public void setUserStatus(String userStatus) {
+    public void setUserStatus(UserStatusEnum userStatus) {
         this.userStatus = userStatus;
     }
 
-    public String getRole() {
+    public RolesEnum getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(RolesEnum role) {
         this.role = role;
     }
 
