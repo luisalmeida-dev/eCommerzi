@@ -1,5 +1,8 @@
 package com.example.sales.model;
 
+import com.example.sales.Enum.RolesEnum;
+import com.example.sales.Enum.UserStatusEnum;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -13,13 +16,13 @@ public class UserEntity {
     private Long id;
 
     @Column(name = "NAME")
-    private String login;
-
-    @Column(name = "EMAIL")
     private String name;
 
-    @Column(name = "LOGIN")
+    @Column(name = "EMAIL")
     private String email;
+
+    @Column(name = "LOGIN")
+    private String login;
 
     @Column(name = "PASSWORD")
     private String password;
@@ -27,11 +30,13 @@ public class UserEntity {
     @Column(name = "PHONE")
     private String phone;
 
-    @Column(name = "STATUS_USER_ID")
-    private Long statusId;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "USER_STATUS")
+    private UserStatusEnum userStatus;
 
-    @Column(name = "ROLE_ID")
-    private Long roleId;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ROLE")
+    private RolesEnum role;
 
     @Column(name = "REGISTRATION_DATE")
     private LocalDateTime registrationDate;
@@ -80,20 +85,20 @@ public class UserEntity {
         this.phone = phone;
     }
 
-    public Long getStatusId() {
-        return statusId;
+    public UserStatusEnum getUserStatus() {
+        return userStatus;
     }
 
-    public void setStatusId(Long statusId) {
-        this.statusId = statusId;
+    public void setUserStatus(UserStatusEnum userStatus) {
+        this.userStatus = userStatus;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public RolesEnum getRole() {
+        return role;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setRole(RolesEnum role) {
+        this.role = role;
     }
 
     public LocalDateTime getRegistrationDate() {

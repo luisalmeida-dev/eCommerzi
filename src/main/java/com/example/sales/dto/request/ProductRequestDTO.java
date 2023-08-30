@@ -1,44 +1,17 @@
-package com.example.sales.model;
+package com.example.sales.dto.request;
 
 import com.example.sales.Enum.CategoryEnum;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "TB_PRODUCT")
-public class ProductEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "TB_PRODUCT", sequenceName = "TB_PRODUCT_SEQ", allocationSize = 1)
-    @Column(name = "PRODUCT_ID")
-    private Long id;
-
-    @Column(name = "NAME")
+public class ProductRequestDTO {
     private String name;
-
-    @Column(name = "PRICE")
     private BigDecimal price;
-
-    @Column(name = "SKU")
     private String sku;
-
-    @Column(name = "DESCRIPTION")
     private String description;
-
-    @Column(name = "QUANTITY")
     private Integer quantity;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "CATEGORY")
     private CategoryEnum category;
-
-    @Column(name = "USER_ID")
     private Long userId;
-
-    public Long getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
@@ -68,8 +41,8 @@ public class ProductEntity {
         return description;
     }
 
-    public void setDescription(String desc) {
-        this.description = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getQuantity() {

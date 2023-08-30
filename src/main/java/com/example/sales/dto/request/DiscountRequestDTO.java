@@ -1,55 +1,20 @@
-package com.example.sales.model;
+package com.example.sales.dto.request;
 
 import com.example.sales.Enum.CategoryEnum;
 import com.example.sales.Enum.DiscountStatusEnum;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table(name = "TB_DISCOUNT")
-public class DiscountEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "TB_DISCOUNT", sequenceName = "TB_DISCOUNT_SEQ", allocationSize = 1)
-    @Column(name = "DISCOUNT_ID")
-    private Long id;
-
-    @Column(name = "USER_ID")
-    private Long userId;
-
-    @Column(name = "NAME")
+public class DiscountRequestDTO {
     private String name;
-
-    @Column(name = "DISCOUNT_PERCENTAGE")
+    private String description;
     private BigDecimal discountPercentage;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "DISCOUNT_STATUS")
     private DiscountStatusEnum discountStatus;
-
-    @Column(name = "EXPIRATION_DT")
     private Date expirationDate;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "CATEGORY")
+    private Long userId;
     private CategoryEnum category;
-
-    @Column(name = "CODE")
     private String code;
-
-    public Long getId() {
-        return id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public String getName() {
         return name;
@@ -57,6 +22,14 @@ public class DiscountEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public BigDecimal getDiscountPercentage() {
@@ -81,6 +54,14 @@ public class DiscountEntity {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public CategoryEnum getCategory() {

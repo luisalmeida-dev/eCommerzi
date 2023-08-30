@@ -1,8 +1,12 @@
 package com.example.sales.model;
 
+import com.example.sales.Enum.OrderStatusEnum;
+import com.example.sales.Enum.PaymentTypesEnum;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "TB_ORDER")
@@ -16,8 +20,9 @@ public class OrderEntity {
     @Column(name = "TOTAL")
     private BigDecimal total;
 
-    @Column(name = "PAYMENT_ID")
-    private Long paymentId;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "PAYMENT_TYPE")
+    private PaymentTypesEnum paymentType;
 
     @Column(name = "PRODUCT_ID")
     private Long productId;
@@ -34,14 +39,44 @@ public class OrderEntity {
     @Column(name = "SHIPPING_PRICE")
     private BigDecimal shippingPrice;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "ORDER_STATUS_ID")
-    private Long orderStatusId;
+    private OrderStatusEnum orderStatus;
 
     @Column(name = "REGISTRATION_DT")
-    private LocalDateTime registrationDate;
+    private Date registrationDate;
+
+    @Column(name = "DELIVERY_DATE")
+    private LocalDateTime deliveryDate;
+
+    @Column(name = "TRACKING_NUMBER")
+    private String trackingNumber;
+
+    @Column(name = "CARD_ID")
+    private Long cardId;
+
+    public Long getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
+    }
+
+    public PaymentTypesEnum getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentTypesEnum paymentType) {
+        this.paymentType = paymentType;
+    }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public BigDecimal getTotal() {
@@ -50,14 +85,6 @@ public class OrderEntity {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
-    }
-
-    public Long getPaymentId() {
-        return paymentId;
-    }
-
-    public void setPaymentId(Long paymentId) {
-        this.paymentId = paymentId;
     }
 
     public Long getProductId() {
@@ -100,19 +127,35 @@ public class OrderEntity {
         this.shippingPrice = shippingPrice;
     }
 
-    public Long getOrderStatusId() {
-        return orderStatusId;
+    public OrderStatusEnum getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOrderStatusId(Long orderStatusId) {
-        this.orderStatusId = orderStatusId;
+    public void setOrderStatus(OrderStatusEnum orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
-    public LocalDateTime getRegistrationDate() {
+    public Date getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(LocalDateTime registrationDate) {
+    public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public LocalDateTime getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(LocalDateTime deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public String getTrackingNumber() {
+        return trackingNumber;
+    }
+
+    public void setTrackingNumber(String trackingNumber) {
+        this.trackingNumber = trackingNumber;
     }
 }
