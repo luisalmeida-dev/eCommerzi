@@ -9,10 +9,10 @@ import com.example.sales.model.DiscountEntity;
 import com.example.sales.model.UserEntity;
 import com.example.sales.repository.DiscountRepository;
 import com.example.sales.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 

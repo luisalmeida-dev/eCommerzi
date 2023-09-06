@@ -2,8 +2,8 @@ package com.example.sales.model;
 
 import com.example.sales.Enum.CategoryEnum;
 import com.example.sales.Enum.DiscountStatusEnum;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 

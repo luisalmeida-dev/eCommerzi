@@ -2,8 +2,8 @@ package com.example.sales.model;
 
 import com.example.sales.Enum.RolesEnum;
 import com.example.sales.Enum.UserStatusEnum;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
