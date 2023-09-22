@@ -7,6 +7,7 @@ import com.example.sales.dto.response.UserResponseDTO;
 import com.example.sales.model.AddressEntity;
 import com.example.sales.model.UserEntity;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,15 +22,19 @@ public class UserMapper {
         return modelMapper.map(entity, UserResponseDTO.class);
     }
 
-    public UserEntity toUserEntity(UserRequestDTO request){
+    public UserEntity toUserEntity(UserRequestDTO request) {
         return modelMapper.map(request, UserEntity.class);
     }
 
-    public AddressEntity addressRequestDTOtoEntity(AddressRequestDTO request){
+    public AddressEntity addressRequestDTOtoEntity(AddressRequestDTO request) {
         return modelMapper.map(request, AddressEntity.class);
     }
 
-    public AddressResponseDTO addressEntityToDTO(AddressEntity entity){
+    public AddressResponseDTO addressEntityToDTO(AddressEntity entity) {
         return modelMapper.map(entity, AddressResponseDTO.class);
+    }
+
+    public UserDetails userEntityToDetails(UserEntity entity) {
+        return modelMapper.map(entity, UserDetails.class);
     }
 }

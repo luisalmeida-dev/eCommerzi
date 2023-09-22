@@ -3,12 +3,18 @@ package com.example.sales.model;
 import com.example.sales.Enum.RolesEnum;
 import com.example.sales.Enum.UserStatusEnum;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "TB_USER")
-public class UserEntity {
+public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "TB_USER", sequenceName = "TB_USER_SEQ", allocationSize = 1)
@@ -69,8 +75,49 @@ public class UserEntity {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return switch (this.role) {
+            case ADMIN -> generateAuthorities(RolesEnum.ADMIN, RolesEnum.USER, RolesEnum.STORE, RolesEnum.CARRIER);
+            case STORE -> generateAuthorities(RolesEnum.STORE);
+            case CARRIER -> generateAuthorities(RolesEnum.CARRIER);
+            default -> generateAuthorities(RolesEnum.USER);
+        };
+    }
+
+    private Collection<? extends GrantedAuthority> generateAuthorities(RolesEnum... roles) {
+        return Arrays.stream(roles)
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
+                .collect(Collectors.toList());
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
