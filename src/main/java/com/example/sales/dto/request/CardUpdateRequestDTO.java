@@ -1,9 +1,27 @@
 package com.example.sales.dto.request;
 
-public class CardUpdateRequestDTO {
+import java.util.Date;
 
-    private String cardNumber;
+public class CardUpdateRequestDTO {
+    private String name;
+    private Date expirationDate;
     private String cardNickname;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
 
     public String getCardNickname() {
         return cardNickname;
@@ -11,13 +29,5 @@ public class CardUpdateRequestDTO {
 
     public void setCardNickname(String cardNickname) {
         this.cardNickname = cardNickname;
-    }
-
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
     }
 }

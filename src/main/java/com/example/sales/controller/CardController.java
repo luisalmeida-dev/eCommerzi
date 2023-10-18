@@ -33,10 +33,10 @@ public class CardController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping
-    public ResponseEntity<String> update(@RequestHeader("Authorization") String authorization, @RequestBody CardUpdateRequestDTO request) throws Exception {
-        cardService.updateCard(authorization, request);
-        return ResponseEntity.ok().body("The user was successfully updated!");
+    @PutMapping({"/{cardId}"})
+    public ResponseEntity<String> update(@RequestHeader("Authorization") String authorization, @RequestBody CardUpdateRequestDTO request, @PathVariable Long cardId) throws Exception {
+        cardService.updateCard(authorization, request, cardId);
+        return ResponseEntity.ok().body("The card was successfully updated!");
     }
 
     @DeleteMapping("/{cardId}")

@@ -42,9 +42,11 @@ public class CardService {
     }
 
     public void createCard(String authorization, CardRequestDTO request) throws Exception {
-        CardEntity card = cardRepository.findByUserIdAndCardNumber(tokenService.decodeToken(authorization).getClaim("userid").asLong(), request.getCardNumber());
+        Long userId = tokenService.decodeToken(authorization).getClaim("userid").asLong();
+        CardEntity card = cardRepository.findByUserIdAndCardNumber(userId, request.getCardNumber());
         if (card == null) {
             card = cardMapper.toEntity(request);
+            card.setUserId(userId);
             cardRepository.save(card);
         } else {
             throw new Exception("This card is already registered!");
@@ -52,19 +54,20 @@ public class CardService {
     }
 
     public void deleteCard(String authorization, Long cardId) throws Exception {
-        CardEntity card = cardRepository.findByIdAndUserId(tokenService.decodeToken(authorization).getClaim("userid").asLong(), cardId);
+        CardEntity card = cardRepository.findByIdAndUserId(cardId, tokenService.decodeToken(authorization).getClaim("userid").asLong());
         if (card != null) {
             cardRepository.delete(card);
-
         } else {
             throw new Exception("The card you're trying to delete doesnt' exist!");
         }
     }
 
-    public void updateCard(String authorization, CardUpdateRequestDTO requestDTO) throws Exception {
-        CardEntity card = cardRepository.findByUserIdAndCardNumber(tokenService.decodeToken(authorization).getClaim("userid").asLong(), requestDTO.getCardNumber());
+    public void updateCard(String authorization, CardUpdateRequestDTO requestDTO, Long cardId) throws Exception {
+        CardEntity card = cardRepository.findByIdAndUserId(cardId, tokenService.decodeToken(authorization).getClaim("userid").asLong());
         if (card != null) {
             card.setCardNickname(requestDTO.getCardNickname());
+            card.setName(requestDTO.getName());
+            card.setExpirationDate(requestDTO.getExpirationDate());
             cardRepository.save(card);
         } else {
             throw new Exception("This card doesn't exist!");
