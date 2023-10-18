@@ -1,7 +1,6 @@
 package com.example.sales.service;
 
-import com.example.sales.Enum.RolesEnum;
-import com.example.sales.Enum.UserStatusEnum;
+import com.example.sales.auth.service.TokenService;
 import com.example.sales.dto.request.AddressRequestDTO;
 import com.example.sales.dto.request.UserRequestDTO;
 import com.example.sales.dto.request.UserUpdateRequestDTO;
@@ -40,10 +39,12 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private TokenService tokenService;
+
     public void createUser(UserRequestDTO request) throws Exception {
         if (userRepository.findByLogin(request.getLogin()) == null) {
             LocalDateTime dateTime = LocalDateTime.now();
-            validateRoleAndStatus(request.getRole().name(), request.getUserStatus().name());
             UserEntity userEntity = userMapper.toUserEntity(request);
             userEntity.setRegistrationDate(dateTime);
             userRepository.save(userEntity);
@@ -52,8 +53,8 @@ public class UserService {
         }
     }
 
-    public UserResponseDTO getUserByLogin(String login) throws Exception {
-        UserEntity user = userRepository.findByLogin(login);
+    public UserResponseDTO getUserByLogin(String authorization) throws Exception {
+        UserEntity user = userRepository.findByLogin(tokenService.decodeToken(authorization).getSubject());
         if (user != null) {
             return userMapper.toUserResponseDTO(user);
         } else {
@@ -61,10 +62,9 @@ public class UserService {
         }
     }
 
-    public void updateUser(UserUpdateRequestDTO request) throws Exception {
-        UserEntity user = userRepository.findByLogin(request.getLogin());
+    public void updateUser(String authorization, UserUpdateRequestDTO request) throws Exception {
+        UserEntity user = userRepository.findByLogin(tokenService.decodeToken(authorization).getSubject());
         if (user != null) {
-            validateRoleAndStatus(user.getRole().name(), user.getUserStatus().name());
             user.setEmail(request.getEmail());
             user.setName(request.getName());
             user.setPhone(request.getPhone());
@@ -74,10 +74,9 @@ public class UserService {
         }
     }
 
-    public void deleteUser(String login) throws Exception {
-        UserEntity user = userRepository.findByLogin(login);
+    public void deleteUser(String authorization) {
+        UserEntity user = userRepository.findByLogin(tokenService.decodeToken(authorization).getSubject());
         if (user != null) {
-            validateRoleAndStatus(user.getRole().name(), user.getUserStatus().name());
             delete(user.getId());
             userRepository.delete(user);
         } else {
@@ -85,16 +84,14 @@ public class UserService {
         }
     }
 
-    public void addAddress(AddressRequestDTO request) throws Exception {
-        UserEntity user = userRepository.findById(request.getUserId()).orElseThrow(() -> new Exception("This user was not found!"));
-        validateRoleAndStatus(user.getRole().name(), user.getUserStatus().name());
+    public void addAddress(String authorization, AddressRequestDTO request) {
         AddressEntity address = userMapper.addressRequestDTOtoEntity(request);
+        address.setUserId(tokenService.decodeToken(authorization).getClaim("userid").asLong());
         addressRepository.save(address);
     }
 
-    public List<AddressResponseDTO> getAllAddressesByUser(Long userId) throws Exception {
-        userRepository.findById(userId).orElseThrow(() -> new Exception("User Not Found!"));
-        List<AddressEntity> addressList = addressRepository.findAllByUserId(userId);
+    public List<AddressResponseDTO> getAllAddressesByUser(String authorization) throws Exception {
+        List<AddressEntity> addressList = addressRepository.findAllByUserId(tokenService.decodeToken(authorization).getClaim("userid").asLong());
         if (!addressList.isEmpty()) {
             return addressList.stream()
                     .map(userMapper::addressEntityToDTO)
@@ -104,8 +101,9 @@ public class UserService {
         }
     }
 
-    public void deleteAddress(Long userId, String zipcode) throws Exception {
-        userRepository.findById(userId).orElseThrow(() -> new Exception("User Not Found!"));
+    public void deleteAddress(String authorization, String zipcode) throws Exception {
+        Long userId = tokenService.decodeToken(authorization).getClaim("userid").asLong();
+        userRepository.findById(userId).orElseThrow(() -> new Exception("User Not Found!")); //TODO mudar para metodo existsById
         AddressEntity address = addressRepository.findByUserIdAndZipcode(userId, zipcode);
         if (address != null) {
             addressRepository.delete(address);
@@ -114,20 +112,7 @@ public class UserService {
         }
     }
 
-    //TODO corrigir resposta quando o status ou role passado nao existe (esta retornando um 404)
-    private void validateRoleAndStatus(String role, String userStatus) throws Exception { //TODO vai ser subsittuida por uma authorization com spring security
-        if (userStatus.equals(UserStatusEnum.ACTIVE.name())) {
-            for (RolesEnum rolesEnum : RolesEnum.values()) {
-                if (rolesEnum.name().equals(role)) {
-                    return;
-                }
-            }
-        } else {
-            throw new Exception("The user status isn't valid!");
-        }
-    }
-
-    private void delete(Long userId) throws Exception {
+    private void delete(Long userId) {
         productService.deleteAllProducts(userId);
         discountService.deleteAllDiscounts(userId);
         cardService.deleteAllCards(userId);

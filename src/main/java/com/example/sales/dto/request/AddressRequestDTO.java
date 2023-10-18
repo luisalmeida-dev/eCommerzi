@@ -1,19 +1,10 @@
 package com.example.sales.dto.request;
 
 public class AddressRequestDTO {
-    private Long userId;
     private String city;
     private String country;
     private String district;
     private String zipcode;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public String getCity() {
         return city;

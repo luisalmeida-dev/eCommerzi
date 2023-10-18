@@ -5,30 +5,30 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "TB_CARD")
+@Table(name = "tb_card")
 public class CardEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "TB_CARD", sequenceName = "TB_CARD_SEQ", allocationSize = 1)
-    @Column(name = "CARD_ID")
+    @SequenceGenerator(name = "tb_card", sequenceName = "tb_card_id_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "CARD_NUMBER")
+    @Column(name = "card_number")
     private String cardNumber;
 
-    @Column(name = "EXPIRATION_DT")
+    @Column(name = "expiration_date")
     private Date expirationDate;
 
-    @Column(name = "CVV")
+    @Column(name = "cvv")
     private Integer cvv;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "CARD_NIKCNAME")
+    @Column(name = "card_nickname")
     private String cardNickname;
 
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     private Long userId;
 
     public Long getId() {

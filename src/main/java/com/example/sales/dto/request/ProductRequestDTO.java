@@ -7,11 +7,9 @@ import java.math.BigDecimal;
 public class ProductRequestDTO {
     private String name;
     private BigDecimal price;
-    private String sku;
     private String description;
     private Integer quantity;
     private CategoryEnum category;
-    private Long userId;
 
     public String getName() {
         return name;
@@ -27,14 +25,6 @@ public class ProductRequestDTO {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
     }
 
     public String getDescription() {
@@ -59,13 +49,5 @@ public class ProductRequestDTO {
 
     public void setCategory(CategoryEnum category) {
         this.category = category;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 }

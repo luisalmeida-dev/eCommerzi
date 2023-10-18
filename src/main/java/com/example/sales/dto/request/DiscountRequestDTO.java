@@ -12,7 +12,6 @@ public class DiscountRequestDTO {
     private BigDecimal discountPercentage;
     private DiscountStatusEnum discountStatus;
     private Date expirationDate;
-    private Long userId;
     private CategoryEnum category;
     private String code;
 
@@ -54,14 +53,6 @@ public class DiscountRequestDTO {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public CategoryEnum getCategory() {

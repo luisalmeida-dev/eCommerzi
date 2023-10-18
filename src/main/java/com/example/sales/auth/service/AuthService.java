@@ -1,4 +1,4 @@
-package com.example.sales.Auth.Service;
+package com.example.sales.auth.service;
 
 import com.example.sales.dto.request.LoginRequestDTO;
 import com.example.sales.dto.request.UserRequestDTO;

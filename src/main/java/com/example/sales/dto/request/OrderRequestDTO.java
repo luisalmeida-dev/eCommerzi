@@ -4,7 +4,6 @@ public class OrderRequestDTO {
     private Long paymentDetailsId;
     private Long productId;
     private Long sellerId;
-    private Long buyerId;
     private Long carrierId;
     private Integer quantity;
 
@@ -38,14 +37,6 @@ public class OrderRequestDTO {
 
     public void setSellerId(Long sellerId) {
         this.sellerId = sellerId;
-    }
-
-    public Long getBuyerId() {
-        return buyerId;
-    }
-
-    public void setBuyerId(Long buyerId) {
-        this.buyerId = buyerId;
     }
 
     public Long getCarrierId() {

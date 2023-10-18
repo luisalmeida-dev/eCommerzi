@@ -9,50 +9,50 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "TB_ORDER")
+@Table(name = "tb_order")
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "TB_ORDER", sequenceName = "TB_ORDER_SEQ", allocationSize = 1)
-    @Column(name = "ORDER_ID")
+    @SequenceGenerator(name = "tb_order", sequenceName = "tb_order_id_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "TOTAL")
+    @Column(name = "total")
     private BigDecimal total;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "PAYMENT_TYPE")
+    @Column(name = "payment_type")
     private PaymentTypesEnum paymentType;
 
-    @Column(name = "PRODUCT_ID")
+    @Column(name = "product_id")
     private Long productId;
 
-    @Column(name = "SELLER_ID")
+    @Column(name = "seller_id")
     private Long sellerId;
 
-    @Column(name = "BUYER_ID")
+    @Column(name = "buyer_id")
     private Long buyerId;
 
-    @Column(name = "CARRIER_ID")
+    @Column(name = "carrier_id")
     private Long carrierId;
 
-    @Column(name = "SHIPPING_PRICE")
+    @Column(name = "shipping_price")
     private BigDecimal shippingPrice;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "ORDER_STATUS_ID")
+    @Column(name = "order_status")
     private OrderStatusEnum orderStatus;
 
-    @Column(name = "REGISTRATION_DT")
+    @Column(name = "registration_date")
     private Date registrationDate;
 
-    @Column(name = "DELIVERY_DATE")
+    @Column(name = "delivery_date")
     private LocalDateTime deliveryDate;
 
-    @Column(name = "TRACKING_NUMBER")
+    @Column(name = "tracking_number")
     private String trackingNumber;
 
-    @Column(name = "CARD_ID")
+    @Column(name = "card_id")
     private Long cardId;
 
     public Long getCardId() {

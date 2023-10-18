@@ -1,6 +1,6 @@
-package com.example.sales.Auth.Controller;
+package com.example.sales.auth.controller;
 
-import com.example.sales.Auth.Service.AuthService;
+import com.example.sales.auth.service.AuthService;
 import com.example.sales.dto.request.LoginRequestDTO;
 import com.example.sales.dto.request.UserRequestDTO;
 import com.example.sales.dto.response.LoginResponseDTO;

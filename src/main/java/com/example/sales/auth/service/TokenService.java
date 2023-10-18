@@ -1,10 +1,10 @@
-package com.example.sales.Auth.Service;
+package com.example.sales.auth.service;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.sales.model.UserEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,6 +25,7 @@ public class TokenService {
             return JWT.create()
                     .withIssuer("eCommerzi")
                     .withSubject(userEntity.getLogin())
+                    .withClaim("userid", userEntity.getId())
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
@@ -43,6 +44,11 @@ public class TokenService {
         } catch (JWTVerificationException exception) {
             throw new RuntimeException("User Not verified", exception);
         }
+    }
+
+    public DecodedJWT decodeToken(String authorization) {
+        String token = authorization.replace("Bearer ", "");
+        return JWT.decode(token);
     }
 
     private Instant generateExpirationDate() {

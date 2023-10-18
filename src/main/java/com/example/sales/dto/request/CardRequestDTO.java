@@ -12,7 +12,6 @@ public class CardRequestDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date expirationDate;
     private Integer cvv;
-    private Long userId;
 
     public String getCardNumber() {
         return cardNumber;
@@ -52,13 +51,5 @@ public class CardRequestDTO {
 
     public void setCvv(Integer cvv) {
         this.cvv = cvv;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 }

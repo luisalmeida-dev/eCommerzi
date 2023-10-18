@@ -13,39 +13,40 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "TB_USER")
+@Table(name = "tb_user")
 public class UserEntity implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "TB_USER", sequenceName = "TB_USER_SEQ", allocationSize = 1)
-    @Column(name = "USER_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tb_user_seq")
+    @SequenceGenerator(name = "tb_user_seq", sequenceName = "tb_user_id_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "NAME")
-    private String name;
-
-    @Column(name = "EMAIL")
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "LOGIN")
+    @Column(name = "login")
     private String login;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "PHONE")
+    @Column(name = "phone")
     private String phone;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "USER_STATUS")
+    @Column(name = "user_status")
     private UserStatusEnum userStatus;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "ROLE")
+    @Column(name = "role")
     private RolesEnum role;
 
-    @Column(name = "REGISTRATION_DATE")
+    @Column(name = "registration_date")
     private LocalDateTime registrationDate;
+
+    @Column(name = "name")
+    private String name;
+
 
     public Long getId() {
         return id;
@@ -107,7 +108,7 @@ public class UserEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return this.userStatus == UserStatusEnum.ACTIVE;
     }
 
     @Override

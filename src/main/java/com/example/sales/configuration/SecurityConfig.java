@@ -1,6 +1,6 @@
 package com.example.sales.configuration;
 
-import com.example.sales.Auth.filter.SecurityFilter;
+import com.example.sales.auth.filter.SecurityFilter;
 import com.example.sales.Enum.RolesEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -6,34 +6,34 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "TB_PRODUCT")
+@Table(name = "tb_product")
 public class ProductEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "TB_PRODUCT", sequenceName = "TB_PRODUCT_SEQ", allocationSize = 1)
-    @Column(name = "PRODUCT_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tb_product_seq")
+    @SequenceGenerator(name = "tb_product_seq", sequenceName = "tb_product_id_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "PRICE")
+    @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "SKU")
+    @Column(name = "sku")
     private String sku;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "QUANTITY")
+    @Column(name = "quantity")
     private Integer quantity;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "CATEGORY")
+    @Column(name = "category")
     private CategoryEnum category;
 
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     private Long userId;
 
     public Long getId() {

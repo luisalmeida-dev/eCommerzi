@@ -18,24 +18,25 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<ProductResponseDTO>> getAllProductsByUser (@PathVariable Long userId) throws Exception {
-        return ResponseEntity.ok(productService.getAllProductsByUser(userId));
-    }
-    @GetMapping("/user/{userId}/sku/{sku}") //TODO id do usuario vai ser pego de forma interna (jwt provavelmente)
-    public ResponseEntity<ProductResponseDTO> getProductBySku(@PathVariable Long userId, @PathVariable String sku) throws Exception {
-        return ResponseEntity.ok(productService.getProductByUserAndSku(userId, sku));
-    }
-
     @PostMapping
-    public ResponseEntity<HttpStatus> createProduct(@RequestBody ProductRequestDTO request) throws Exception {
-        productService.createProduct(request);
+    public ResponseEntity<HttpStatus> createProduct(@RequestHeader("Authorization") String authorization, @RequestBody ProductRequestDTO request) throws Exception {
+        productService.createProduct(authorization, request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("{productId}/user/{userId}") //TODO id do usuario vai ser pego de forma interna (jwt provavelmente)
-    public ResponseEntity<String> updateProduct(@PathVariable Long productId, @RequestBody ProductUpdateRequestDTO request, @PathVariable Long userId) throws Exception {
-        productService.updateProduct(productId, request, userId);
+    @GetMapping("/all")
+    public ResponseEntity<List<ProductResponseDTO>> getAllProductsByUser(@RequestHeader("Authorization") String authorization) throws Exception {
+        return ResponseEntity.ok(productService.getAllProductsByUser(authorization));
+    }
+
+    @GetMapping("/{sku}")
+    public ResponseEntity<ProductResponseDTO> getProductBySku(@RequestHeader("Authorization") String authorization, @PathVariable String sku) throws Exception {
+        return ResponseEntity.ok(productService.getProductByUserAndSku(authorization, sku));
+    }
+
+    @PutMapping("/{productId}")
+    public ResponseEntity<String> updateProduct(@RequestHeader("Authorization") String authorization, @PathVariable Long productId, @RequestBody ProductUpdateRequestDTO request) throws Exception {
+        productService.updateProduct(authorization, productId, request);
         return ResponseEntity.ok("The product was successfully updated!");
     }
 }

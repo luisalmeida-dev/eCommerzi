@@ -8,35 +8,35 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "TB_DISCOUNT")
+@Table(name = "tb_discount")
 public class DiscountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "TB_DISCOUNT", sequenceName = "TB_DISCOUNT_SEQ", allocationSize = 1)
-    @Column(name = "DISCOUNT_ID")
+    @SequenceGenerator(name = "tb_discount", sequenceName = "tb_discount_id_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "DISCOUNT_PERCENTAGE")
+    @Column(name = "discount_percentage")
     private BigDecimal discountPercentage;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "DISCOUNT_STATUS")
+    @Column(name = "discount_status")
     private DiscountStatusEnum discountStatus;
 
-    @Column(name = "EXPIRATION_DT")
+    @Column(name = "expiration_date")
     private Date expirationDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "CATEGORY")
+    @Column(name = "category")
     private CategoryEnum category;
 
-    @Column(name = "CODE")
+    @Column(name = "code")
     private String code;
 
     public Long getId() {

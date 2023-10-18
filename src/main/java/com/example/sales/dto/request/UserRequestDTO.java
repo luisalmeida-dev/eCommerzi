@@ -5,8 +5,6 @@ import com.example.sales.Enum.UserStatusEnum;
 
 public class UserRequestDTO {
 
-    private String name;
-
     private String email;
 
     private String login;
@@ -18,6 +16,8 @@ public class UserRequestDTO {
     private UserStatusEnum userStatus;
 
     private RolesEnum role;
+
+    private String name;
 
     public String getName() {
         return name;

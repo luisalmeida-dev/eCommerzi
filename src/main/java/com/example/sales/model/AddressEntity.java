@@ -3,27 +3,27 @@ package com.example.sales.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "TB_ADDRESS")
+@Table(name = "tb_address")
 public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "TB_ADDRESS", sequenceName = "TB_ADDRESS_SEQ", allocationSize = 1)
-    @Column(name = "ADDRESS_ID")
+    @SequenceGenerator(name = "tb_address", sequenceName = "tb_address_id_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "CITY")
+    @Column(name = "city")
     private String city;
 
-    @Column(name = "COUNTRY")
+    @Column(name = "country")
     private String country;
 
-    @Column(name = "DISTRICT")
+    @Column(name = "district")
     private String district;
 
-    @Column(name = "ZIPCODE")
+    @Column(name = "zipcode")
     private String zipcode;
 
     public Long getId() {

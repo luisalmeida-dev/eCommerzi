@@ -17,13 +17,13 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    ResponseEntity<HttpStatus> createOrder(@RequestBody OrderRequestDTO request) throws Exception {
-        orderService.createOrder(request);
+    ResponseEntity<HttpStatus> createOrder(@RequestHeader("Authorization") String authorization, @RequestBody OrderRequestDTO request) throws Exception {
+        orderService.createOrder(authorization, request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/userId/{id}")
-    ResponseEntity<List<OrderResponseDTO>> getOrdersByUser(@PathVariable Long id) throws Exception {
-        return ResponseEntity.ok(orderService.getOrdersByUser(id));
+    @GetMapping
+    ResponseEntity<List<OrderResponseDTO>> getOrdersByUser(@RequestHeader("Authorization") String authorization) throws Exception {
+        return ResponseEntity.ok(orderService.getOrdersByUser(authorization));
     }
 }

@@ -18,26 +18,25 @@ public class DiscountController {
     private DiscountService discountService;
 
     @PostMapping
-    ResponseEntity<HttpStatus> create(@RequestBody DiscountRequestDTO request) throws Exception {
-        discountService.createDiscount(request);
+    ResponseEntity<HttpStatus> create(@RequestHeader("Authorization") String authorization, @RequestBody DiscountRequestDTO request) throws Exception {
+        discountService.createDiscount(authorization, request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("user/{userId}")
-        //TODO url vai mudar quando userId for passado na authorization
-    ResponseEntity<List<DiscountResponseDTO>> getAllDiscountsByUser(@PathVariable Long userId) throws Exception {
-        return ResponseEntity.ok(discountService.getAllDiscountsByUser(userId));
+    @GetMapping("/all")
+    ResponseEntity<List<DiscountResponseDTO>> getAllDiscountsByUser(@RequestHeader("Authorzation") String authorization) throws Exception {
+        return ResponseEntity.ok(discountService.getAllDiscountsByUser(authorization));
     }
 
     @PutMapping("/{discountId}")
-    ResponseEntity<HttpStatus> updateDiscountById(@RequestBody DiscountUpdateRequestDTO request, @PathVariable Long discountId) {
-        discountService.updateDiscountById(request, discountId);
+    ResponseEntity<HttpStatus> updateDiscountById(@RequestHeader("Authorization") String authorization, @RequestBody DiscountUpdateRequestDTO request, @PathVariable Long discountId) {
+        discountService.updateDiscountById(authorization, request, discountId);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{discountId}")
-    ResponseEntity<HttpStatus> deleteDiscountById(@PathVariable Long discountId) {
-        discountService.deleteDiscountById(discountId);
+    ResponseEntity<HttpStatus> deleteDiscountById(@RequestHeader("Auhtorization") String authorization, @PathVariable Long discountId) {
+        discountService.deleteDiscountById(authorization, discountId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
