@@ -1,6 +1,7 @@
 package com.example.sales.model;
 
 import com.example.sales.Enum.CategoryEnum;
+import com.example.sales.Enum.DiscountStatusEnum;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -35,6 +36,36 @@ public class ProductEntity {
 
     @Column(name = "user_id")
     private Long userId;
+
+    @Column(name = "discount_percentage")
+    private BigDecimal discountPercentage;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "discount_status")
+    private DiscountStatusEnum discountStatus;
+
+    @Column(name = "total")
+    private BigDecimal total;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BigDecimal getDiscountPercentage() {
+        return discountPercentage;
+    }
+
+    public void setDiscountPercentage(BigDecimal discountPercentage) {
+        this.discountPercentage = discountPercentage;
+    }
+
+    public DiscountStatusEnum getDiscountStatus() {
+        return discountStatus;
+    }
+
+    public void setDiscountStatus(DiscountStatusEnum discountStatus) {
+        this.discountStatus = discountStatus;
+    }
 
     public Long getId() {
         return id;
@@ -94,5 +125,13 @@ public class ProductEntity {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 }

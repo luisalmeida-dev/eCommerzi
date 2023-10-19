@@ -31,9 +31,6 @@ public class UserService {
     private ProductService productService;
 
     @Autowired
-    private DiscountService discountService;
-
-    @Autowired
     private CardService cardService;
 
     @Autowired
@@ -114,7 +111,6 @@ public class UserService {
 
     private void delete(Long userId) {
         productService.deleteAllProducts(userId);
-        discountService.deleteAllDiscounts(userId);
         cardService.deleteAllCards(userId);
         addressRepository.deleteAllByUserId(userId);
     }

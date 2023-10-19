@@ -1,6 +1,7 @@
 package com.example.sales.dto.response;
 
 import com.example.sales.Enum.CategoryEnum;
+import com.example.sales.Enum.DiscountStatusEnum;
 
 import java.math.BigDecimal;
 
@@ -12,6 +13,24 @@ public class ProductResponseDTO {
     private BigDecimal price;
     private String sku;
     private CategoryEnum category;
+    private BigDecimal discountPercentage;
+    private DiscountStatusEnum discountStatus;
+
+    public BigDecimal getDiscountPercentage() {
+        return discountPercentage;
+    }
+
+    public void setDiscountPercentage(BigDecimal discountPercentage) {
+        this.discountPercentage = discountPercentage;
+    }
+
+    public DiscountStatusEnum getDiscountStatus() {
+        return discountStatus;
+    }
+
+    public void setDiscountStatus(DiscountStatusEnum discountStatus) {
+        this.discountStatus = discountStatus;
+    }
 
     public Long getProductId() {
         return productId;

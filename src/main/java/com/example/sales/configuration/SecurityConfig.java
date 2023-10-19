@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
                         .requestMatchers("/user**", "/card**").hasRole(RolesEnum.USER.name())
-                        .requestMatchers("/product**", "/discount**").hasRole(RolesEnum.STORE.name())
+                        .requestMatchers("/product**").hasRole(RolesEnum.STORE.name())
                         .requestMatchers("/order**").hasRole(RolesEnum.STORE.name())
                         .requestMatchers(HttpMethod.GET, "/order**").hasRole(RolesEnum.USER.name())
                         .anyRequest().authenticated())

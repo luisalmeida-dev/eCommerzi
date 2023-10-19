@@ -1,6 +1,7 @@
 package com.example.sales.service;
 
 import com.example.sales.Enum.CategoryEnum;
+import com.example.sales.Enum.DiscountStatusEnum;
 import com.example.sales.auth.service.TokenService;
 import com.example.sales.dto.request.ProductRequestDTO;
 import com.example.sales.dto.request.ProductUpdateRequestDTO;
@@ -11,6 +12,7 @@ import com.example.sales.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -55,6 +57,10 @@ public class ProductService {
             ProductEntity product = productMapper.toProductEntity(request);
             product.setUserId(userId);
             product.setSku(sku);
+            product.setTotal(calculatePrice(request.getPrice(), request.getDiscountPercentage(), request.getDiscountStatus()));
+            if (product.getDiscountStatus() != DiscountStatusEnum.ACTIVE) {
+                product.setDiscountStatus(DiscountStatusEnum.INACTIVE);
+            }
             productRepository.save(product);
         } else {
             throw new Exception("This product is already registered!");
@@ -80,5 +86,13 @@ public class ProductService {
         Random rng = new Random(seed);
         long number = (rng.nextLong() % 90000000000L) + 10000000000L;
         return category.getAbbreviation() + number;
+    }
+
+    private BigDecimal calculatePrice(BigDecimal price, BigDecimal discountPercentage, DiscountStatusEnum discountStatus) {
+        if (discountStatus.equals(DiscountStatusEnum.ACTIVE)) {
+            return price.multiply(BigDecimal.valueOf(100.00).subtract(discountPercentage)).divide(BigDecimal.valueOf(100.00));
+        } else {
+            return price;
+        }
     }
 }
