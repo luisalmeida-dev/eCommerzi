@@ -9,8 +9,6 @@ import java.util.List;
 @Repository
 public interface AddressRepository extends JpaRepository<AddressEntity, Long> {
     List<AddressEntity> findAllByUserId(Long userId);
-
-    AddressEntity findByUserIdAndZipcode(Long userId, String zipcode);
-
+    AddressEntity findByUserIdAndId(Long userId, Long id);
     void deleteAllByUserId(Long userId);
 }

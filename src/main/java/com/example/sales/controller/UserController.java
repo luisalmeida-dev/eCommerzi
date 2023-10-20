@@ -48,14 +48,19 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/address/all")
+    @GetMapping("/address")
     public ResponseEntity<List<AddressResponseDTO>> getAllAddresses(@RequestHeader("Authorization") String authorization) throws Exception {
         return ResponseEntity.ok(userService.getAllAddressesByUser(authorization));
     }
 
-    @DeleteMapping("/address/{zipcode}")
-    public ResponseEntity<HttpStatus> deleteAddress(@RequestHeader("Authorization") String authorization, @PathVariable String zipcode) throws Exception {
-        userService.deleteAddress(authorization, zipcode);
+    @GetMapping("/address/{id}")
+    public ResponseEntity<AddressResponseDTO> getAddressById(@RequestHeader("Authorization") String authorization, @PathVariable Long id) throws Exception {
+        return ResponseEntity.ok(userService.getAddressByUserAndId(authorization, id));
+    }
+
+    @DeleteMapping("/address/{id}")
+    public ResponseEntity<HttpStatus> deleteAddress(@RequestHeader("Authorization") String authorization, @PathVariable Long id) throws Exception {
+        userService.deleteAddress(authorization, id);
         return ResponseEntity.ok().build();
     }
 }

@@ -1,7 +1,7 @@
 package com.example.sales.configuration;
 
-import com.example.sales.auth.filter.SecurityFilter;
 import com.example.sales.Enum.RolesEnum;
+import com.example.sales.auth.filter.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
-                        .requestMatchers("/user**", "/card**").hasRole(RolesEnum.USER.name())
+                        .requestMatchers("/card**").hasRole(RolesEnum.USER.name())
                         .requestMatchers("/product**").hasRole(RolesEnum.STORE.name())
                         .requestMatchers("/order**").hasRole(RolesEnum.STORE.name())
                         .requestMatchers(HttpMethod.GET, "/order**").hasRole(RolesEnum.USER.name())

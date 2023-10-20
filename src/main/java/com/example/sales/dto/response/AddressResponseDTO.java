@@ -44,4 +44,8 @@ public class AddressResponseDTO {
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

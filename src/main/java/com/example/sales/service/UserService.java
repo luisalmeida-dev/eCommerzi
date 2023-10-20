@@ -98,10 +98,18 @@ public class UserService {
         }
     }
 
-    public void deleteAddress(String authorization, String zipcode) throws Exception {
+    public AddressResponseDTO getAddressByUserAndId(String authorization, Long id) throws Exception {
+        AddressEntity address = addressRepository.findByUserIdAndId(tokenService.decodeToken(authorization).getClaim("userid").asLong(), id);
+        if (address != null) {
+            return userMapper.addressEntityToDTO(address);
+        } else {
+            throw new Exception("This address is not registered!");
+        }
+    }
+
+    public void deleteAddress(String authorization, Long id) throws Exception {
         Long userId = tokenService.decodeToken(authorization).getClaim("userid").asLong();
-        userRepository.findById(userId).orElseThrow(() -> new Exception("User Not Found!")); //TODO mudar para metodo existsById
-        AddressEntity address = addressRepository.findByUserIdAndZipcode(userId, zipcode);
+        AddressEntity address = addressRepository.findByUserIdAndId(userId, id);
         if (address != null) {
             addressRepository.delete(address);
         } else {

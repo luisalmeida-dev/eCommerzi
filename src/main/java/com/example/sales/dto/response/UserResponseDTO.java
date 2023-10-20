@@ -3,6 +3,8 @@ package com.example.sales.dto.response;
 import java.time.LocalDateTime;
 
 public class UserResponseDTO {
+
+    private Long id;
     private String name;
 
     private String email;
@@ -19,6 +21,14 @@ public class UserResponseDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
