@@ -1,5 +1,6 @@
 package com.example.sales.model;
 
+import com.example.sales.Enum.StatesEnum;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,8 +21,9 @@ public class AddressEntity {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "district")
-    private String district;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state")
+    private StatesEnum state;
 
     @Column(name = "zipcode")
     private String zipcode;
@@ -54,12 +56,12 @@ public class AddressEntity {
         this.country = country;
     }
 
-    public String getDistrict() {
-        return district;
+    public StatesEnum getState() {
+        return state;
     }
 
-    public void setDistrict(String distric) {
-        this.district = distric;
+    public void setState(StatesEnum state) {
+        this.state = state;
     }
 
     public String getZipcode() {

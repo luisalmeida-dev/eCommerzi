@@ -1,26 +1,38 @@
 package com.example.sales.dto.request;
 
+import com.example.sales.Enum.PaymentTypesEnum;
+
 public class OrderRequestDTO {
-    private Long paymentDetailsId;
+
+    private Long cardId;
+    private Long carrierId;
+    private PaymentTypesEnum paymentType;
     private Long productId;
     private Long sellerId;
-    private Long carrierId;
     private Integer quantity;
 
-    public Integer getQuantity() {
-        return quantity;
+    public Long getCardId() {
+        return cardId;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
     }
 
-    public Long getPaymentDetailsId() {
-        return paymentDetailsId;
+    public Long getCarrierId() {
+        return carrierId;
     }
 
-    public void setPaymentDetailsId(Long paymentDetailsId) {
-        this.paymentDetailsId = paymentDetailsId;
+    public void setCarrierId(Long carrierId) {
+        this.carrierId = carrierId;
+    }
+
+    public PaymentTypesEnum getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentTypesEnum paymentType) {
+        this.paymentType = paymentType;
     }
 
     public Long getProductId() {
@@ -39,11 +51,11 @@ public class OrderRequestDTO {
         this.sellerId = sellerId;
     }
 
-    public Long getCarrierId() {
-        return carrierId;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setCarrierId(Long carrierId) {
-        this.carrierId = carrierId;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

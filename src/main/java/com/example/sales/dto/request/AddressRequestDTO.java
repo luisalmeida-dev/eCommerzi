@@ -1,9 +1,11 @@
 package com.example.sales.dto.request;
 
+import com.example.sales.Enum.StatesEnum;
+
 public class AddressRequestDTO {
     private String city;
     private String country;
-    private String district;
+    private StatesEnum state;
     private String zipcode;
 
     public String getCity() {
@@ -22,12 +24,12 @@ public class AddressRequestDTO {
         this.country = country;
     }
 
-    public String getDistrict() {
-        return district;
+    public StatesEnum getState() {
+        return state;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setState(StatesEnum state) {
+        this.state = state;
     }
 
     public String getZipcode() {
