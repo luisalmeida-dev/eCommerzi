@@ -7,7 +7,6 @@ public class ProductUpdateRequestDTO {
     private BigDecimal price;
     private String description;
     private Integer quantity;
-    private Long discountId;
     private Long category;
 
     public String getName() {
@@ -40,14 +39,6 @@ public class ProductUpdateRequestDTO {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public Long getDiscountId() {
-        return discountId;
-    }
-
-    public void setDiscountId(Long discountId) {
-        this.discountId = discountId;
     }
 
     public Long getCategory() {

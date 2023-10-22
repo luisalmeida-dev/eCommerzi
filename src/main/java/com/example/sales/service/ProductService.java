@@ -1,34 +1,37 @@
 package com.example.sales.service;
 
+import com.example.sales.Enum.CategoryEnum;
+import com.example.sales.Enum.DiscountStatusEnum;
+import com.example.sales.auth.service.TokenService;
 import com.example.sales.dto.request.ProductRequestDTO;
 import com.example.sales.dto.request.ProductUpdateRequestDTO;
 import com.example.sales.dto.response.ProductResponseDTO;
 import com.example.sales.mapper.ProductMapper;
 import com.example.sales.model.ProductEntity;
-import com.example.sales.model.UserEntity;
 import com.example.sales.repository.ProductRepository;
-import com.example.sales.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
-
-    @Autowired
-    private UserRepository userRepository;
-
     @Autowired
     private ProductRepository productRepository;
 
     @Autowired
     private ProductMapper productMapper;
 
-    public List<ProductResponseDTO> getAllProductsByUser(Long userId) throws Exception {
-        validateUser(userId);
-        List<ProductEntity> productList = productRepository.findAllByUserId(userId);
+    @Autowired
+    private TokenService tokenService;
+
+    private static final String USERID = "userid";
+
+    public List<ProductResponseDTO> getAllProductsByUser(String authorization) throws Exception {
+        List<ProductEntity> productList = productRepository.findAllByUserId(tokenService.decodeToken(authorization).getClaim(USERID).asLong());
         if (!productList.isEmpty()) {
             return productList.stream()
                     .map(productMapper::toProductResponseDTO)
@@ -38,9 +41,8 @@ public class ProductService {
         }
     }
 
-    public ProductResponseDTO getProductByUserAndSku(Long userId, String sku) throws Exception {
-        validateUser(userId);
-        ProductEntity product = productRepository.findBySku(sku);
+    public ProductResponseDTO getProductByUserAndSku(String authorization, String sku) throws Exception {
+        ProductEntity product = productRepository.findByUserIdAndSku(tokenService.decodeToken(authorization).getClaim(USERID).asLong(), sku);
         if (product != null) {
             return productMapper.toProductResponseDTO(product);
         } else {
@@ -48,19 +50,25 @@ public class ProductService {
         }
     }
 
-    public void createProduct(ProductRequestDTO request) throws Exception {
-        validateUser(request.getUserId());
-        if (productRepository.findBySku(request.getSku()) == null) {
+    public void createProduct(String authorization, ProductRequestDTO request) throws Exception {
+        Long userId = tokenService.decodeToken(authorization).getClaim(USERID).asLong();
+        String sku = generateSku(request.getCategory());
+        if (productRepository.findByUserIdAndNameAndCategory(userId, request.getName(), request.getCategory()) == null) {
             ProductEntity product = productMapper.toProductEntity(request);
+            product.setUserId(userId);
+            product.setSku(sku);
+            product.setTotal(calculatePrice(request.getPrice(), request.getDiscountPercentage(), request.getDiscountStatus()));
+            if (product.getDiscountStatus() != DiscountStatusEnum.ACTIVE) {
+                product.setDiscountStatus(DiscountStatusEnum.INACTIVE);
+            }
             productRepository.save(product);
         } else {
             throw new Exception("This product is already registered!");
         }
     }
 
-    public void updateProduct(Long productId, ProductUpdateRequestDTO request, Long userId) throws Exception {
-        validateUser(userId);
-        ProductEntity product = productRepository.findByIdAndUserId(productId, userId);
+    public void updateProduct(String authorization, Long productId, ProductUpdateRequestDTO request) throws Exception {
+        ProductEntity product = productRepository.findByIdAndUserId(productId, tokenService.decodeToken(authorization).getClaim(USERID).asLong());
         if (product != null) {
             product = productMapper.productUpdateDTOtoEntity(request);
             productRepository.save(product);
@@ -69,16 +77,22 @@ public class ProductService {
         }
     }
 
-    public void deleteAllProducts(Long userId) throws Exception {
-        validateUser(userId);
+    public void deleteAllProducts(Long userId) {
         productRepository.deleteAllByUserId(userId);
     }
 
-    //TODO ver uma forma de fazer essa validacao em apenas em um lugar e poder ser utilizada em outros locais
-    private void validateUser(Long userId) throws Exception {
-        UserEntity user = userRepository.findById(userId).orElseThrow(() -> new Exception("This user was not found!"));
-        if (user == null || user.getUserStatus() == null || user.getRole() == null) {
-            throw new Exception("This user is invalid, please check user situation for more details!");
+    private String generateSku(CategoryEnum category) {
+        long seed = System.currentTimeMillis();
+        Random rng = new Random(seed);
+        long number = (rng.nextLong() % 90000000000L) + 10000000000L;
+        return category.getAbbreviation() + number;
+    }
+
+    private BigDecimal calculatePrice(BigDecimal price, BigDecimal discountPercentage, DiscountStatusEnum discountStatus) {
+        if (discountStatus.equals(DiscountStatusEnum.ACTIVE)) {
+            return price.multiply(BigDecimal.valueOf(100.00).subtract(discountPercentage)).divide(BigDecimal.valueOf(100.00));
+        } else {
+            return price;
         }
     }
 }

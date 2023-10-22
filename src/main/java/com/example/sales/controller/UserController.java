@@ -1,7 +1,6 @@
 package com.example.sales.controller;
 
 import com.example.sales.dto.request.AddressRequestDTO;
-import com.example.sales.dto.request.UserRequestDTO;
 import com.example.sales.dto.request.UserUpdateRequestDTO;
 import com.example.sales.dto.response.AddressResponseDTO;
 import com.example.sales.dto.response.UserResponseDTO;
@@ -19,43 +18,42 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
-    public ResponseEntity<HttpStatus> create(@RequestBody UserRequestDTO request) throws Exception {
-        userService.createUser(request);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
-    @GetMapping("/{login}")
-    public ResponseEntity<UserResponseDTO> getUser(@PathVariable String login) throws Exception {
-        return ResponseEntity.ok(userService.getUserByLogin(login));
+    @GetMapping
+    public ResponseEntity<UserResponseDTO> getUser(@RequestHeader("Authorization") String authorization) throws Exception {
+        return ResponseEntity.ok(userService.getUserByLogin(authorization));
     }
 
     @PutMapping
-    public ResponseEntity<HttpStatus> update(@RequestBody UserUpdateRequestDTO request) throws Exception {
-        userService.updateUser(request);
+    public ResponseEntity<HttpStatus> update(@RequestHeader("Authorization") String authorization, @RequestBody UserUpdateRequestDTO request) throws Exception {
+        userService.updateUser(authorization, request);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{login}")
-    public ResponseEntity<Void> delete(@PathVariable String login) throws Exception { //TODO colocar validacao de usuario com spring security, para validar se o usuario que quer deletar a conta eh o mesmo que ta fazendo o request
-        userService.deleteUser(login);
+    @DeleteMapping
+    public ResponseEntity<Void> delete(@RequestHeader("Authorization") String authorization) {
+        userService.deleteUser(authorization);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/address")
-    public ResponseEntity<HttpStatus> addAddress(@RequestBody AddressRequestDTO request) throws Exception {
-        userService.addAddress(request);
+    public ResponseEntity<HttpStatus> addAddress(@RequestHeader("Authorization") String authorization, @RequestBody AddressRequestDTO request) throws Exception {
+        userService.addAddress(authorization, request);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{userId}/address")
-    public ResponseEntity<List<AddressResponseDTO>> getAllAddresses(@PathVariable Long userId) throws Exception {
-        return ResponseEntity.ok(userService.getAllAddressesByUser(userId));
+    @GetMapping("/address")
+    public ResponseEntity<List<AddressResponseDTO>> getAllAddresses(@RequestHeader("Authorization") String authorization) throws Exception {
+        return ResponseEntity.ok(userService.getAllAddressesByUser(authorization));
     }
 
-    @DeleteMapping("/{userId}/address/{zipcode}")
-    public ResponseEntity<HttpStatus> deleteAddress(@PathVariable Long userId, @PathVariable String zipcode) throws Exception {
-        userService.deleteAddress(userId, zipcode);
+    @GetMapping("/address/{id}")
+    public ResponseEntity<AddressResponseDTO> getAddressById(@RequestHeader("Authorization") String authorization, @PathVariable Long id) throws Exception {
+        return ResponseEntity.ok(userService.getAddressByUserAndId(authorization, id));
+    }
+
+    @DeleteMapping("/address/{id}")
+    public ResponseEntity<HttpStatus> deleteAddress(@RequestHeader("Authorization") String authorization, @PathVariable Long id) throws Exception {
+        userService.deleteAddress(authorization, id);
         return ResponseEntity.ok().build();
     }
 }

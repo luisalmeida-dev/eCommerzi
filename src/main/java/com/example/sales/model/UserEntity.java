@@ -2,44 +2,53 @@ package com.example.sales.model;
 
 import com.example.sales.Enum.RolesEnum;
 import com.example.sales.Enum.UserStatusEnum;
+import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "TB_USER")
-public class UserEntity {
+@Table(name = "tb_user")
+public class UserEntity implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "TB_USER", sequenceName = "TB_USER_SEQ", allocationSize = 1)
-    @Column(name = "USER_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tb_user_seq")
+    @SequenceGenerator(name = "tb_user_seq", sequenceName = "tb_user_id_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "NAME")
-    private String name;
-
-    @Column(name = "EMAIL")
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "LOGIN")
+    @Column(name = "login")
     private String login;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "PHONE")
+    @Column(name = "phone")
     private String phone;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "USER_STATUS")
+    @Column(name = "user_status")
     private UserStatusEnum userStatus;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "ROLE")
+    @Column(name = "role")
     private RolesEnum role;
 
-    @Column(name = "REGISTRATION_DATE")
+    @Column(name = "registration_date")
     private LocalDateTime registrationDate;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "activation_code")
+    private Long activationCode;
 
     public Long getId() {
         return id;
@@ -69,8 +78,49 @@ public class UserEntity {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return switch (this.role) {
+            case ADMIN -> generateAuthorities(RolesEnum.ADMIN, RolesEnum.USER, RolesEnum.STORE, RolesEnum.CARRIER);
+            case STORE -> generateAuthorities(RolesEnum.STORE);
+            case CARRIER -> generateAuthorities(RolesEnum.CARRIER);
+            default -> generateAuthorities(RolesEnum.USER);
+        };
+    }
+
+    private Collection<? extends GrantedAuthority> generateAuthorities(RolesEnum... roles) {
+        return Arrays.stream(roles)
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
+                .collect(Collectors.toList());
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.userStatus == UserStatusEnum.ACTIVE;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
@@ -107,5 +157,13 @@ public class UserEntity {
 
     public void setRegistrationDate(LocalDateTime registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public Long getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(Long activationCode) {
+        this.activationCode = activationCode;
     }
 }

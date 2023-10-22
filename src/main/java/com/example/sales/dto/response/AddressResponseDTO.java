@@ -1,10 +1,17 @@
 package com.example.sales.dto.response;
 
+import com.example.sales.Enum.StatesEnum;
+
 public class AddressResponseDTO {
+    private Long id;
     private String city;
     private String country;
-    private String district;
+    private StatesEnum state;
     private String zipcode;
+
+    public Long getId() {
+        return id;
+    }
 
     public String getCity() {
         return city;
@@ -22,12 +29,12 @@ public class AddressResponseDTO {
         this.country = country;
     }
 
-    public String getDistrict() {
-        return district;
+    public StatesEnum getState() {
+        return state;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setState(StatesEnum state) {
+        this.state = state;
     }
 
     public String getZipcode() {
@@ -36,5 +43,9 @@ public class AddressResponseDTO {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

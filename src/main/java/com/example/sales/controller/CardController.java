@@ -17,31 +17,31 @@ public class CardController {
     @Autowired
     private CardService cardService;
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<CardResponseDTO>> getAllCardsByUser(@PathVariable Long userId) throws Exception {
-        return ResponseEntity.ok(cardService.getAllCardsByUser(userId));
+    @GetMapping("/all")
+    public ResponseEntity<List<CardResponseDTO>> getAllCardsByUser(@RequestHeader("Authorization") String authorization) throws Exception {
+        return ResponseEntity.ok(cardService.getAllCardsByUser(authorization));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CardResponseDTO> getCard(@PathVariable Long id) throws Exception {
-        return ResponseEntity.ok(cardService.getCardById(id));
+    @GetMapping("/{cardId}")
+    public ResponseEntity<CardResponseDTO> getCard(@PathVariable Long cardId) throws Exception {
+        return ResponseEntity.ok(cardService.getCardById(cardId));
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> create(@RequestBody CardRequestDTO request) throws Exception {
-        cardService.createCard(request);
+    public ResponseEntity<HttpStatus> create(@RequestHeader("Authorization") String authorization, @RequestBody CardRequestDTO request) throws Exception {
+        cardService.createCard(authorization, request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/{userId}")
-    public ResponseEntity<String> update(@PathVariable Long userId, @RequestBody CardUpdateRequestDTO request) throws Exception {
-        cardService.updateCard(userId, request);
-        return ResponseEntity.ok().body("The user was successfully updated!");
+    @PutMapping({"/{cardId}"})
+    public ResponseEntity<String> update(@RequestHeader("Authorization") String authorization, @RequestBody CardUpdateRequestDTO request, @PathVariable Long cardId) throws Exception {
+        cardService.updateCard(authorization, request, cardId);
+        return ResponseEntity.ok().body("The card was successfully updated!");
     }
 
-    @DeleteMapping("/{cardId}/user/{userId}")
-    public ResponseEntity<HttpStatus> delete(@PathVariable Long cardId, @PathVariable Long userId) throws Exception {
-        cardService.deleteCard(cardId, userId);
+    @DeleteMapping("/{cardId}")
+    public ResponseEntity<HttpStatus> delete(@RequestHeader("Authorization") String authorization, @PathVariable Long cardId) throws Exception {
+        cardService.deleteCard(authorization, cardId);
         return ResponseEntity.ok().build();
     }
 }
