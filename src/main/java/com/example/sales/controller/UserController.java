@@ -1,7 +1,6 @@
 package com.example.sales.controller;
 
 import com.example.sales.dto.request.AddressRequestDTO;
-import com.example.sales.dto.request.UserRequestDTO;
 import com.example.sales.dto.request.UserUpdateRequestDTO;
 import com.example.sales.dto.response.AddressResponseDTO;
 import com.example.sales.dto.response.UserResponseDTO;
@@ -18,12 +17,6 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-
-    @PostMapping
-    public ResponseEntity<HttpStatus> create(@RequestBody UserRequestDTO request) throws Exception {
-        userService.createUser(request);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
 
     @GetMapping
     public ResponseEntity<UserResponseDTO> getUser(@RequestHeader("Authorization") String authorization) throws Exception {

@@ -1,5 +1,6 @@
 package com.example.sales.service;
 
+import com.example.sales.Enum.UserStatusEnum;
 import com.example.sales.auth.service.TokenService;
 import com.example.sales.dto.request.AddressRequestDTO;
 import com.example.sales.dto.request.UserRequestDTO;
@@ -38,17 +39,6 @@ public class UserService {
 
     @Autowired
     private TokenService tokenService;
-
-    public void createUser(UserRequestDTO request) throws Exception {
-        if (userRepository.findByLogin(request.getLogin()) == null) {
-            LocalDateTime dateTime = LocalDateTime.now();
-            UserEntity userEntity = userMapper.toUserEntity(request);
-            userEntity.setRegistrationDate(dateTime);
-            userRepository.save(userEntity);
-        } else {
-            throw new Exception("User already Registered");
-        }
-    }
 
     public UserResponseDTO getUserByLogin(String authorization) throws Exception {
         UserEntity user = userRepository.findByLogin(tokenService.decodeToken(authorization).getSubject());

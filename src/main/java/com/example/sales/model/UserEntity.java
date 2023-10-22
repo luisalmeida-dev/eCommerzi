@@ -47,6 +47,8 @@ public class UserEntity implements UserDetails {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "activation_code")
+    private Long activationCode;
 
     public Long getId() {
         return id;
@@ -155,5 +157,13 @@ public class UserEntity implements UserDetails {
 
     public void setRegistrationDate(LocalDateTime registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public Long getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(Long activationCode) {
+        this.activationCode = activationCode;
     }
 }

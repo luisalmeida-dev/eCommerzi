@@ -1,5 +1,7 @@
 package com.example.sales.auth.service;
 
+import com.example.sales.Enum.UserStatusEnum;
+import com.example.sales.dto.request.EmailRequestDTO;
 import com.example.sales.dto.request.LoginRequestDTO;
 import com.example.sales.dto.request.UserRequestDTO;
 import com.example.sales.dto.response.LoginResponseDTO;
@@ -17,7 +19,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.time.LocalDateTime;
+import java.util.Random;
 
 @Service
 public class AuthService implements UserDetailsService {
@@ -60,6 +64,32 @@ public class AuthService implements UserDetailsService {
         UserEntity user = userMapper.toUserEntity(userRequest);
         user.setRegistrationDate(dateTime);
         user.setPassword(encryptedPassword);
+        user.setUserStatus(UserStatusEnum.INACTIVE);
         userRepository.save(user);
+    }
+
+    public long generateActivationCode(EmailRequestDTO emailRequest) throws AccountNotFoundException {
+        UserEntity user = userRepository.findByEmail(emailRequest.getEmail());
+        if (user != null) {
+            long seed = System.currentTimeMillis();
+            Random rng = new Random(seed);
+            long code = (rng.nextLong() % 900000L) + 100000L;
+            user.setActivationCode(code);
+            userRepository.save(user);
+            return code;
+        } else {
+            throw new AccountNotFoundException("The user was not found");
+        }
+    }
+
+    public void validateCode(EmailRequestDTO emailRequest, Long code) throws Exception {
+        UserEntity user = userRepository.findByEmail(emailRequest.getEmail());
+        if (user != null && (user.getActivationCode().equals(code))) {
+            user.setUserStatus(UserStatusEnum.ACTIVE);
+            user.setActivationCode(null);
+            userRepository.save(user);
+        } else {
+            throw new Exception("This code isn't valid");
+        }
     }
 }

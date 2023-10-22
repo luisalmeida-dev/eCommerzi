@@ -4,19 +4,11 @@ import com.example.sales.Enum.RolesEnum;
 import com.example.sales.Enum.UserStatusEnum;
 
 public class UserRequestDTO {
-
     private String email;
-
     private String login;
-
     private String password;
-
     private String phone;
-
-    private UserStatusEnum userStatus;
-
     private RolesEnum role;
-
     private String name;
 
     public String getName() {
@@ -57,14 +49,6 @@ public class UserRequestDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public UserStatusEnum getUserStatus() {
-        return userStatus;
-    }
-
-    public void setUserStatus(UserStatusEnum userStatus) {
-        this.userStatus = userStatus;
     }
 
     public RolesEnum getRole() {

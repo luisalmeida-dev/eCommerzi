@@ -28,11 +28,12 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/register", "/auth/login").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/card**").hasRole(RolesEnum.USER.name())
+                        .requestMatchers(HttpMethod.GET, "/product**").hasRole(RolesEnum.USER.name())
                         .requestMatchers("/product**").hasRole(RolesEnum.STORE.name())
-                        .requestMatchers("/order**").hasRole(RolesEnum.STORE.name())
-                        .requestMatchers(HttpMethod.GET, "/order**").hasRole(RolesEnum.USER.name())
+                        .requestMatchers("/order**").hasRole(RolesEnum.USER.name())
+                        .requestMatchers(HttpMethod.GET, "/order**").hasRole(RolesEnum.STORE.name())
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
