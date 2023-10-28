@@ -81,6 +81,12 @@ public class ProductService {
         productRepository.deleteAllByUserId(userId);
     }
 
+    public void deleteProductById(String authorization, Long id) {
+        Long userId = tokenService.decodeToken(authorization).getClaim("USERID").asLong();
+        ProductEntity product = productRepository.findByIdAndUserId(id, userId);
+        productRepository.delete(product);
+    }
+
     private String generateSku(CategoryEnum category) {
         long seed = System.currentTimeMillis();
         Random rng = new Random(seed);

@@ -23,12 +23,12 @@ public class OrderEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_type")
     private PaymentTypesEnum paymentType;
-
+    
     @Column(name = "product_id")
-    private Long productId;
+    private String productIdList;
 
-    @Column(name = "seller_id")
-    private Long sellerId;
+    @Column(name = "store_id")
+    private Long storeId;
 
     @Column(name = "buyer_id")
     private Long buyerId;
@@ -54,6 +54,9 @@ public class OrderEntity {
 
     @Column(name = "card_id")
     private Long cardId;
+
+    @Column(name = "code")
+    private Long orderCode;
 
     public Long getCardId() {
         return cardId;
@@ -83,20 +86,20 @@ public class OrderEntity {
         this.total = total;
     }
 
-    public Long getProductId() {
-        return productId;
+    public String getProductIdList() {
+        return productIdList;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProductIdList(String productIdList) {
+        this.productIdList = productIdList;
     }
 
-    public Long getSellerId() {
-        return sellerId;
+    public Long getStoreId() {
+        return storeId;
     }
 
-    public void setSellerId(Long sellerId) {
-        this.sellerId = sellerId;
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
     }
 
     public Long getBuyerId() {
@@ -153,5 +156,13 @@ public class OrderEntity {
 
     public void setTrackingNumber(String trackingNumber) {
         this.trackingNumber = trackingNumber;
+    }
+
+    public Long getOrderCode() {
+        return orderCode;
+    }
+
+    public void setOrderCode(Long orderCode) {
+        this.orderCode = orderCode;
     }
 }

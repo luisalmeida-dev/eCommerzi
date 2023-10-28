@@ -5,14 +5,14 @@ import com.example.sales.Enum.OrderStatusEnum;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 public class OrderResponseDTO {
     private Long orderCode;
     private BigDecimal total;
     private String paymentType;
-    private String productName;
-    private BigDecimal productPrice;
-    private String sellerName;
+    List<ProductResponseDTO> productList;
+    private String storeName;
     private String carrierName;
     private String shippingPrice;
     private OrderStatusEnum orderStatus;
@@ -45,28 +45,20 @@ public class OrderResponseDTO {
         this.paymentType = paymentType;
     }
 
-    public String getProductName() {
-        return productName;
+    public List<ProductResponseDTO> getProductList() {
+        return productList;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProductList(List<ProductResponseDTO> productList) {
+        this.productList = productList;
     }
 
-    public BigDecimal getProductPrice() {
-        return productPrice;
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setProductPrice(BigDecimal productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public String getSellerName() {
-        return sellerName;
-    }
-
-    public void setSellerName(String sellerName) {
-        this.sellerName = sellerName;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public String getCarrierName() {

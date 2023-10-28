@@ -2,13 +2,15 @@ package com.example.sales.dto.request;
 
 import com.example.sales.Enum.PaymentTypesEnum;
 
+import java.util.List;
+
 public class OrderRequestDTO {
 
     private Long cardId;
     private Long carrierId;
     private PaymentTypesEnum paymentType;
-    private Long productId;
-    private Long sellerId;
+    private List<Long> productIdList;
+    private Long storeId;
     private Integer quantity;
 
     public Long getCardId() {
@@ -35,20 +37,20 @@ public class OrderRequestDTO {
         this.paymentType = paymentType;
     }
 
-    public Long getProductId() {
-        return productId;
+    public List<Long> getProductIdList() {
+        return productIdList;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProductIdList(List<Long> productIdList) {
+        this.productIdList = productIdList;
     }
 
-    public Long getSellerId() {
-        return sellerId;
+    public Long getStoreId() {
+        return storeId;
     }
 
-    public void setSellerId(Long sellerId) {
-        this.sellerId = sellerId;
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
     }
 
     public Integer getQuantity() {
