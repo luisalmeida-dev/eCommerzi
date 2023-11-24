@@ -13,7 +13,7 @@ public class CarrierService {
     @Autowired
     private UserService userService;
 
-    public BigDecimal shippingPrice(BigDecimal productPrice, Long carrierId) {
+    public BigDecimal shippingPrice(BigDecimal productPrice, Integer carrierId) {
         if (carrierId % 2 == 0) {
             productPrice = productPrice.multiply(new BigDecimal("0.065"));
         } else {

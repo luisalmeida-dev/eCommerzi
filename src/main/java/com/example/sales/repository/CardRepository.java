@@ -7,12 +7,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CardRepository extends JpaRepository<CardEntity, Long> {
-    List<CardEntity> findAllByUserId(Long userId);
+public interface CardRepository extends JpaRepository<CardEntity, Integer> {
+    List<CardEntity> findAllByUserId(Integer userId);
 
-    CardEntity findByUserIdAndCardNumber(Long id, String cardNumber);
+    CardEntity findByUserIdAndCardNumber(Integer id, String cardNumber);
 
-    CardEntity findByIdAndUserId(Long cardId, Long userId);
+    CardEntity findByIdAndUserId(Integer cardId, Integer userId);
 
-    void deleteAllByUserId(Long userId);
+    void deleteAllByUserId(Integer userId);
 }

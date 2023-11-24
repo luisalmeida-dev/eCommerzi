@@ -1,10 +1,10 @@
 package com.example.sales.dto.request;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class CardUpdateRequestDTO {
     private String name;
-    private Date expirationDate;
+    private LocalDate expirationDate;
     private String cardNickname;
 
     public String getName() {
@@ -15,11 +15,11 @@ public class CardUpdateRequestDTO {
         this.name = name;
     }
 
-    public Date getExpirationDate() {
+    public LocalDate getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
     }
 

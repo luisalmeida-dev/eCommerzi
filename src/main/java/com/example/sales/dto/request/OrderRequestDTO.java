@@ -6,26 +6,26 @@ import java.util.List;
 
 public class OrderRequestDTO {
 
-    private Long cardId;
-    private Long carrierId;
+    private Integer cardId;
+    private Integer carrierId;
     private PaymentTypesEnum paymentType;
-    private List<Long> productIdList;
-    private Long storeId;
+    private List<Integer> productIdList;
+    private Integer storeId;
     private Integer quantity;
 
-    public Long getCardId() {
+    public Integer getCardId() {
         return cardId;
     }
 
-    public void setCardId(Long cardId) {
+    public void setCardId(Integer cardId) {
         this.cardId = cardId;
     }
 
-    public Long getCarrierId() {
+    public Integer getCarrierId() {
         return carrierId;
     }
 
-    public void setCarrierId(Long carrierId) {
+    public void setCarrierId(Integer carrierId) {
         this.carrierId = carrierId;
     }
 
@@ -37,19 +37,19 @@ public class OrderRequestDTO {
         this.paymentType = paymentType;
     }
 
-    public List<Long> getProductIdList() {
+    public List<Integer> getProductIdList() {
         return productIdList;
     }
 
-    public void setProductIdList(List<Long> productIdList) {
+    public void setProductIdList(List<Integer> productIdList) {
         this.productIdList = productIdList;
     }
 
-    public Long getStoreId() {
+    public Integer getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(Long storeId) {
+    public void setStoreId(Integer storeId) {
         this.storeId = storeId;
     }
 

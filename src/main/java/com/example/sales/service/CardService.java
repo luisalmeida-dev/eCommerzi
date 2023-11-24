@@ -26,7 +26,7 @@ public class CardService {
     private TokenService tokenService;
 
     public List<CardResponseDTO> getAllCardsByUser(String authorization) throws Exception {
-        List<CardEntity> cardList = cardRepository.findAllByUserId(tokenService.decodeToken(authorization).getClaim("userid").asLong());
+        List<CardEntity> cardList = cardRepository.findAllByUserId(tokenService.decodeToken(authorization).getClaim("userid").asInt());
         if (!cardList.isEmpty()) {
             return cardList.stream()
                     .map(cardMapper::toDTO)
@@ -36,16 +36,17 @@ public class CardService {
         }
     }
 
-    public CardResponseDTO getCardById(Long id) throws Exception {
+    public CardResponseDTO getCardById(Integer id) throws Exception {
         CardEntity card = cardRepository.findById(id).orElseThrow(() -> new Exception("this card doesn't exists!"));
         return cardMapper.toDTO(card);
     }
 
     public void createCard(String authorization, CardRequestDTO request) throws Exception {
-        Long userId = tokenService.decodeToken(authorization).getClaim("userid").asLong();
+        Integer userId = tokenService.decodeToken(authorization).getClaim("userid").asInt();
         CardEntity card = cardRepository.findByUserIdAndCardNumber(userId, request.getCardNumber());
         if (card == null) {
             card = cardMapper.toEntity(request);
+            card.setExpirationDate(request.getExpirationDate());
             card.setUserId(userId);
             cardRepository.save(card);
         } else {
@@ -53,8 +54,8 @@ public class CardService {
         }
     }
 
-    public void deleteCard(String authorization, Long cardId) throws Exception {
-        CardEntity card = cardRepository.findByIdAndUserId(cardId, tokenService.decodeToken(authorization).getClaim("userid").asLong());
+    public void deleteCard(String authorization, Integer cardId) throws Exception {
+        CardEntity card = cardRepository.findByIdAndUserId(cardId, tokenService.decodeToken(authorization).getClaim("userid").asInt());
         if (card != null) {
             cardRepository.delete(card);
         } else {
@@ -62,8 +63,8 @@ public class CardService {
         }
     }
 
-    public void updateCard(String authorization, CardUpdateRequestDTO requestDTO, Long cardId) throws Exception {
-        CardEntity card = cardRepository.findByIdAndUserId(cardId, tokenService.decodeToken(authorization).getClaim("userid").asLong());
+    public void updateCard(String authorization, CardUpdateRequestDTO requestDTO, Integer cardId) throws Exception {
+        CardEntity card = cardRepository.findByIdAndUserId(cardId, tokenService.decodeToken(authorization).getClaim("userid").asInt());
         if (card != null) {
             card.setCardNickname(requestDTO.getCardNickname());
             card.setName(requestDTO.getName());
@@ -74,7 +75,7 @@ public class CardService {
         }
     }
 
-    public void deleteAllCards(Long userId) {
+    public void deleteAllCards(Integer userId) {
         cardRepository.deleteAllByUserId(userId);
     }
 }

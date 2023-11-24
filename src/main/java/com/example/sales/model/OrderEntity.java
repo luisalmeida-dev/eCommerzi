@@ -13,9 +13,8 @@ import java.util.Date;
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "tb_order", sequenceName = "tb_order_id_seq", allocationSize = 1)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "total")
     private BigDecimal total;
@@ -23,18 +22,18 @@ public class OrderEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_type")
     private PaymentTypesEnum paymentType;
-    
+
     @Column(name = "product_id")
     private String productIdList;
 
     @Column(name = "store_id")
-    private Long storeId;
+    private Integer storeId;
 
     @Column(name = "buyer_id")
-    private Long buyerId;
+    private Integer buyerId;
 
     @Column(name = "carrier_id")
-    private Long carrierId;
+    private Integer carrierId;
 
     @Column(name = "shipping_price")
     private BigDecimal shippingPrice;
@@ -53,16 +52,16 @@ public class OrderEntity {
     private String trackingNumber;
 
     @Column(name = "card_id")
-    private Long cardId;
+    private Integer cardId;
 
     @Column(name = "code")
-    private Long orderCode;
+    private Integer orderCode;
 
-    public Long getCardId() {
+    public Integer getCardId() {
         return cardId;
     }
 
-    public void setCardId(Long cardId) {
+    public void setCardId(Integer cardId) {
         this.cardId = cardId;
     }
 
@@ -74,7 +73,7 @@ public class OrderEntity {
         this.paymentType = paymentType;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -94,27 +93,27 @@ public class OrderEntity {
         this.productIdList = productIdList;
     }
 
-    public Long getStoreId() {
+    public Integer getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(Long storeId) {
+    public void setStoreId(Integer storeId) {
         this.storeId = storeId;
     }
 
-    public Long getBuyerId() {
+    public Integer getBuyerId() {
         return buyerId;
     }
 
-    public void setBuyerId(Long buyerId) {
+    public void setBuyerId(Integer buyerId) {
         this.buyerId = buyerId;
     }
 
-    public Long getCarrierId() {
+    public Integer getCarrierId() {
         return carrierId;
     }
 
-    public void setCarrierId(Long carrierId) {
+    public void setCarrierId(Integer carrierId) {
         this.carrierId = carrierId;
     }
 
@@ -158,11 +157,11 @@ public class OrderEntity {
         this.trackingNumber = trackingNumber;
     }
 
-    public Long getOrderCode() {
+    public Integer getOrderCode() {
         return orderCode;
     }
 
-    public void setOrderCode(Long orderCode) {
+    public void setOrderCode(Integer orderCode) {
         this.orderCode = orderCode;
     }
 }

@@ -23,7 +23,7 @@ public class CardController {
     }
 
     @GetMapping("/{cardId}")
-    public ResponseEntity<CardResponseDTO> getCard(@PathVariable Long cardId) throws Exception {
+    public ResponseEntity<CardResponseDTO> getCard(@PathVariable Integer cardId) throws Exception {
         return ResponseEntity.ok(cardService.getCardById(cardId));
     }
 
@@ -34,13 +34,13 @@ public class CardController {
     }
 
     @PutMapping({"/{cardId}"})
-    public ResponseEntity<String> update(@RequestHeader("Authorization") String authorization, @RequestBody CardUpdateRequestDTO request, @PathVariable Long cardId) throws Exception {
+    public ResponseEntity<String> update(@RequestHeader("Authorization") String authorization, @RequestBody CardUpdateRequestDTO request, @PathVariable Integer cardId) throws Exception {
         cardService.updateCard(authorization, request, cardId);
         return ResponseEntity.ok().body("The card was successfully updated!");
     }
 
     @DeleteMapping("/{cardId}")
-    public ResponseEntity<HttpStatus> delete(@RequestHeader("Authorization") String authorization, @PathVariable Long cardId) throws Exception {
+    public ResponseEntity<HttpStatus> delete(@RequestHeader("Authorization") String authorization, @PathVariable Integer cardId) throws Exception {
         cardService.deleteCard(authorization, cardId);
         return ResponseEntity.ok().build();
     }

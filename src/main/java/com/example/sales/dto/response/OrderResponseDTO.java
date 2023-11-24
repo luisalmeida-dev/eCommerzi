@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderResponseDTO {
-    private Long orderCode;
+    private Integer orderCode;
     private BigDecimal total;
     private String paymentType;
     List<ProductResponseDTO> productList;
@@ -21,11 +21,11 @@ public class OrderResponseDTO {
     private String trackingNumber;
     private String userAddress;
 
-    public Long getOrderCode() {
+    public Integer getOrderCode() {
         return orderCode;
     }
 
-    public void setOrderCode(Long orderCode) {
+    public void setOrderCode(Integer orderCode) {
         this.orderCode = orderCode;
     }
 

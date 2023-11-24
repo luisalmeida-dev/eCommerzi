@@ -1,20 +1,20 @@
 package com.example.sales.dto.response;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class CardResponseDTO {
     private String cardId;
     private String cardNumber;
     private String name;
     private String cardNickname;
-    private Date expierationDate;
+    private LocalDate expirationDate;
 
-    public Date getExpierationDate() {
-        return expierationDate;
+    public LocalDate getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setExpierationDate(Date expierationDate) {
-        this.expierationDate = expierationDate;
+    public void setExpirationDate(LocalDate expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     public String getCardId() {

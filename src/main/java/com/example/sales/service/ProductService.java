@@ -31,7 +31,7 @@ public class ProductService {
     private static final String USERID = "userid";
 
     public List<ProductResponseDTO> getAllProductsByUser(String authorization) throws Exception {
-        List<ProductEntity> productList = productRepository.findAllByUserId(tokenService.decodeToken(authorization).getClaim(USERID).asLong());
+        List<ProductEntity> productList = productRepository.findAllByUserId(tokenService.decodeToken(authorization).getClaim(USERID).asInt());
         if (!productList.isEmpty()) {
             return productList.stream()
                     .map(productMapper::toProductResponseDTO)
@@ -42,7 +42,7 @@ public class ProductService {
     }
 
     public ProductResponseDTO getProductByUserAndSku(String authorization, String sku) throws Exception {
-        ProductEntity product = productRepository.findByUserIdAndSku(tokenService.decodeToken(authorization).getClaim(USERID).asLong(), sku);
+        ProductEntity product = productRepository.findByUserIdAndSku(tokenService.decodeToken(authorization).getClaim(USERID).asInt(), sku);
         if (product != null) {
             return productMapper.toProductResponseDTO(product);
         } else {
@@ -51,7 +51,7 @@ public class ProductService {
     }
 
     public void createProduct(String authorization, ProductRequestDTO request) throws Exception {
-        Long userId = tokenService.decodeToken(authorization).getClaim(USERID).asLong();
+        Integer userId = tokenService.decodeToken(authorization).getClaim(USERID).asInt();
         String sku = generateSku(request.getCategory());
         if (productRepository.findByUserIdAndNameAndCategory(userId, request.getName(), request.getCategory()) == null) {
             ProductEntity product = productMapper.toProductEntity(request);
@@ -67,8 +67,8 @@ public class ProductService {
         }
     }
 
-    public void updateProduct(String authorization, Long productId, ProductUpdateRequestDTO request) throws Exception {
-        ProductEntity product = productRepository.findByIdAndUserId(productId, tokenService.decodeToken(authorization).getClaim(USERID).asLong());
+    public void updateProduct(String authorization, Integer productId, ProductUpdateRequestDTO request) throws Exception {
+        ProductEntity product = productRepository.findByIdAndUserId(productId, tokenService.decodeToken(authorization).getClaim(USERID).asInt());
         if (product != null) {
             product = productMapper.productUpdateDTOtoEntity(request);
             productRepository.save(product);
@@ -77,12 +77,12 @@ public class ProductService {
         }
     }
 
-    public void deleteAllProducts(Long userId) {
+    public void deleteAllProducts(Integer userId) {
         productRepository.deleteAllByUserId(userId);
     }
 
-    public void deleteProductById(String authorization, Long id) {
-        Long userId = tokenService.decodeToken(authorization).getClaim("USERID").asLong();
+    public void deleteProductById(String authorization, Integer id) {
+        Integer userId = tokenService.decodeToken(authorization).getClaim(USERID).asInt();
         ProductEntity product = productRepository.findByIdAndUserId(id, userId);
         productRepository.delete(product);
     }

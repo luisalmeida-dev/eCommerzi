@@ -11,9 +11,8 @@ import java.math.BigDecimal;
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tb_product_seq")
-    @SequenceGenerator(name = "tb_product_seq", sequenceName = "tb_product_id_seq", allocationSize = 1)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -35,7 +34,7 @@ public class ProductEntity {
     private CategoryEnum category;
 
     @Column(name = "user_id")
-    private Long userId;
+    private Integer userId;
 
     @Column(name = "discount_percentage")
     private BigDecimal discountPercentage;
@@ -47,7 +46,7 @@ public class ProductEntity {
     @Column(name = "total")
     private BigDecimal total;
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -67,7 +66,7 @@ public class ProductEntity {
         this.discountStatus = discountStatus;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -119,11 +118,11 @@ public class ProductEntity {
         this.category = category;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
