@@ -7,8 +7,6 @@ import com.example.sales.model.ProductEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class ProductMapper {
     private final ModelMapper modelMapper;

@@ -1,3 +1,4 @@
+
 package com.example.sales.auth.service;
 
 import com.example.sales.Enum.UserStatusEnum;
@@ -68,12 +69,12 @@ public class AuthService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    public long generateActivationCode(EmailRequestDTO emailRequest) throws AccountNotFoundException {
+    public int generateActivationCode(EmailRequestDTO emailRequest) throws AccountNotFoundException {
         UserEntity user = userRepository.findByEmail(emailRequest.getEmail());
         if (user != null) {
             long seed = System.currentTimeMillis();
             Random rng = new Random(seed);
-            long code = (rng.nextLong() % 900000L) + 100000L;
+            int code = (Math.abs(rng.nextInt() % 900000));
             user.setActivationCode(code);
             userRepository.save(user);
             return code;
@@ -82,7 +83,7 @@ public class AuthService implements UserDetailsService {
         }
     }
 
-    public void validateCode(EmailRequestDTO emailRequest, Long code) throws Exception {
+    public void validateCode(EmailRequestDTO emailRequest, Integer code) throws Exception {
         UserEntity user = userRepository.findByEmail(emailRequest.getEmail());
         if (user != null && (user.getActivationCode().equals(code))) {
             user.setUserStatus(UserStatusEnum.ACTIVE);

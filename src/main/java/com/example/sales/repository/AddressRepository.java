@@ -7,8 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AddressRepository extends JpaRepository<AddressEntity, Long> {
-    List<AddressEntity> findAllByUserId(Long userId);
-    AddressEntity findByUserIdAndId(Long userId, Long id);
-    void deleteAllByUserId(Long userId);
+public interface AddressRepository extends JpaRepository<AddressEntity, Integer> {
+    List<AddressEntity> findAllByUserId(Integer userId);
+
+    AddressEntity findByUserIdAndId(Integer userId, Integer id);
+    void deleteAllByUserId(Integer userId);
 }

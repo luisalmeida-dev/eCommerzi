@@ -1,16 +1,12 @@
 package com.example.sales.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import java.util.Date;
+import java.time.LocalDate;
 
 public class CardRequestDTO {
     private String cardNumber;
     private String name;
     private String cardNickname;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date expirationDate;
+    private LocalDate expirationDate;
     private Integer cvv;
 
     public String getCardNumber() {
@@ -37,11 +33,11 @@ public class CardRequestDTO {
         this.cardNickname = cardNickname;
     }
 
-    public Date getExpirationDate() {
+    public LocalDate getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
     }
 

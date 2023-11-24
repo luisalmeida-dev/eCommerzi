@@ -47,12 +47,12 @@ public class UserController {
     }
 
     @GetMapping("/address/{id}")
-    public ResponseEntity<AddressResponseDTO> getAddressById(@RequestHeader("Authorization") String authorization, @PathVariable Long id) throws Exception {
+    public ResponseEntity<AddressResponseDTO> getAddressById(@RequestHeader("Authorization") String authorization, @PathVariable Integer id) throws Exception {
         return ResponseEntity.ok(userService.getAddressByUserAndId(authorization, id));
     }
 
     @DeleteMapping("/address/{id}")
-    public ResponseEntity<HttpStatus> deleteAddress(@RequestHeader("Authorization") String authorization, @PathVariable Long id) throws Exception {
+    public ResponseEntity<HttpStatus> deleteAddress(@RequestHeader("Authorization") String authorization, @PathVariable Integer id) throws Exception {
         userService.deleteAddress(authorization, id);
         return ResponseEntity.ok().build();
     }

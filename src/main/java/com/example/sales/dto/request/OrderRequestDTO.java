@@ -2,28 +2,30 @@ package com.example.sales.dto.request;
 
 import com.example.sales.Enum.PaymentTypesEnum;
 
+import java.util.List;
+
 public class OrderRequestDTO {
 
-    private Long cardId;
-    private Long carrierId;
+    private Integer cardId;
+    private Integer carrierId;
     private PaymentTypesEnum paymentType;
-    private Long productId;
-    private Long sellerId;
+    private List<Integer> productIdList;
+    private Integer storeId;
     private Integer quantity;
 
-    public Long getCardId() {
+    public Integer getCardId() {
         return cardId;
     }
 
-    public void setCardId(Long cardId) {
+    public void setCardId(Integer cardId) {
         this.cardId = cardId;
     }
 
-    public Long getCarrierId() {
+    public Integer getCarrierId() {
         return carrierId;
     }
 
-    public void setCarrierId(Long carrierId) {
+    public void setCarrierId(Integer carrierId) {
         this.carrierId = carrierId;
     }
 
@@ -35,20 +37,20 @@ public class OrderRequestDTO {
         this.paymentType = paymentType;
     }
 
-    public Long getProductId() {
-        return productId;
+    public List<Integer> getProductIdList() {
+        return productIdList;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProductIdList(List<Integer> productIdList) {
+        this.productIdList = productIdList;
     }
 
-    public Long getSellerId() {
-        return sellerId;
+    public Integer getStoreId() {
+        return storeId;
     }
 
-    public void setSellerId(Long sellerId) {
-        this.sellerId = sellerId;
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
     }
 
     public Integer getQuantity() {

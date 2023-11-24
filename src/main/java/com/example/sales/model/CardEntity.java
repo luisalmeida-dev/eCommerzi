@@ -2,6 +2,7 @@ package com.example.sales.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -9,15 +10,14 @@ import java.util.Date;
 public class CardEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "tb_card", sequenceName = "tb_card_id_seq", allocationSize = 1)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "card_number")
     private String cardNumber;
 
     @Column(name = "expiration_date")
-    private Date expirationDate;
+    private LocalDate expirationDate;
 
     @Column(name = "cvv")
     private Integer cvv;
@@ -29,9 +29,9 @@ public class CardEntity {
     private String cardNickname;
 
     @Column(name = "user_id")
-    private Long userId;
+    private Integer userId;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -43,11 +43,11 @@ public class CardEntity {
         this.cardNumber = cardNumber;
     }
 
-    public Date getExpirationDate() {
+    public LocalDate getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -75,11 +75,11 @@ public class CardEntity {
         this.cardNickname = cardNickname;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 }

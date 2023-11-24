@@ -17,9 +17,8 @@ import java.util.stream.Collectors;
 public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tb_user_seq")
-    @SequenceGenerator(name = "tb_user_seq", sequenceName = "tb_user_id_seq", allocationSize = 1)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "email")
     private String email;
@@ -48,9 +47,9 @@ public class UserEntity implements UserDetails {
     private String name;
 
     @Column(name = "activation_code")
-    private Long activationCode;
+    private Integer activationCode;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -159,11 +158,11 @@ public class UserEntity implements UserDetails {
         this.registrationDate = registrationDate;
     }
 
-    public Long getActivationCode() {
+    public Integer getActivationCode() {
         return activationCode;
     }
 
-    public void setActivationCode(Long activationCode) {
+    public void setActivationCode(Integer activationCode) {
         this.activationCode = activationCode;
     }
 }

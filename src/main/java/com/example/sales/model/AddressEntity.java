@@ -3,17 +3,17 @@ package com.example.sales.model;
 import com.example.sales.Enum.StatesEnum;
 import jakarta.persistence.*;
 
+
 @Entity
 @Table(name = "tb_address")
 public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "tb_address", sequenceName = "tb_address_id_seq", allocationSize = 1)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "user_id")
-    private Long userId;
+    private Integer userId;
 
     @Column(name = "city")
     private String city;
@@ -28,15 +28,15 @@ public class AddressEntity {
     @Column(name = "zipcode")
     private String zipcode;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

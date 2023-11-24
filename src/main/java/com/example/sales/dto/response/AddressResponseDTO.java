@@ -3,13 +3,13 @@ package com.example.sales.dto.response;
 import com.example.sales.Enum.StatesEnum;
 
 public class AddressResponseDTO {
-    private Long id;
+    private Integer id;
     private String city;
     private String country;
     private StatesEnum state;
     private String zipcode;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -45,7 +45,7 @@ public class AddressResponseDTO {
         this.zipcode = zipcode;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

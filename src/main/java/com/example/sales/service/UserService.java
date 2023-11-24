@@ -1,9 +1,7 @@
 package com.example.sales.service;
 
-import com.example.sales.Enum.UserStatusEnum;
 import com.example.sales.auth.service.TokenService;
 import com.example.sales.dto.request.AddressRequestDTO;
-import com.example.sales.dto.request.UserRequestDTO;
 import com.example.sales.dto.request.UserUpdateRequestDTO;
 import com.example.sales.dto.response.AddressResponseDTO;
 import com.example.sales.dto.response.UserResponseDTO;
@@ -16,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,12 +70,12 @@ public class UserService {
 
     public void addAddress(String authorization, AddressRequestDTO request) {
         AddressEntity address = userMapper.addressRequestDTOtoEntity(request);
-        address.setUserId(tokenService.decodeToken(authorization).getClaim("userid").asLong());
+        address.setUserId(tokenService.decodeToken(authorization).getClaim("userid").asInt());
         addressRepository.save(address);
     }
 
     public List<AddressResponseDTO> getAllAddressesByUser(String authorization) throws Exception {
-        List<AddressEntity> addressList = addressRepository.findAllByUserId(tokenService.decodeToken(authorization).getClaim("userid").asLong());
+        List<AddressEntity> addressList = addressRepository.findAllByUserId(tokenService.decodeToken(authorization).getClaim("userid").asInt());
         if (!addressList.isEmpty()) {
             return addressList.stream()
                     .map(userMapper::addressEntityToDTO)
@@ -88,8 +85,8 @@ public class UserService {
         }
     }
 
-    public AddressResponseDTO getAddressByUserAndId(String authorization, Long id) throws Exception {
-        AddressEntity address = addressRepository.findByUserIdAndId(tokenService.decodeToken(authorization).getClaim("userid").asLong(), id);
+    public AddressResponseDTO getAddressByUserAndId(String authorization, Integer id) throws Exception {
+        AddressEntity address = addressRepository.findByUserIdAndId(tokenService.decodeToken(authorization).getClaim("userid").asInt(), id);
         if (address != null) {
             return userMapper.addressEntityToDTO(address);
         } else {
@@ -97,8 +94,8 @@ public class UserService {
         }
     }
 
-    public void deleteAddress(String authorization, Long id) throws Exception {
-        Long userId = tokenService.decodeToken(authorization).getClaim("userid").asLong();
+    public void deleteAddress(String authorization, Integer id) throws Exception {
+        Integer userId = tokenService.decodeToken(authorization).getClaim("userid").asInt();
         AddressEntity address = addressRepository.findByUserIdAndId(userId, id);
         if (address != null) {
             addressRepository.delete(address);
@@ -107,7 +104,7 @@ public class UserService {
         }
     }
 
-    private void delete(Long userId) {
+    private void delete(Integer userId) {
         productService.deleteAllProducts(userId);
         cardService.deleteAllCards(userId);
         addressRepository.deleteAllByUserId(userId);

@@ -34,9 +34,15 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductByUserAndSku(authorization, sku));
     }
 
-    @PutMapping("/{productId}")
-    public ResponseEntity<String> updateProduct(@RequestHeader("Authorization") String authorization, @PathVariable Long productId, @RequestBody ProductUpdateRequestDTO request) throws Exception {
-        productService.updateProduct(authorization, productId, request);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateProduct(@RequestHeader("Authorization") String authorization, @PathVariable Integer id, @RequestBody ProductUpdateRequestDTO request) throws Exception {
+        productService.updateProduct(authorization, id, request);
         return ResponseEntity.ok("The product was successfully updated!");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteProductById(@RequestHeader("Authorization") String authorization, @PathVariable Integer id) {
+        productService.deleteProductById(authorization, id);
+        return ResponseEntity.ok().build();
     }
 }

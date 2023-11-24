@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
-    List<OrderEntity> getAllByBuyerId(Long userId);
+public interface OrderRepository extends JpaRepository<OrderEntity, Integer> {
+    List<OrderEntity> getAllByBuyerId(Integer userId);
 }

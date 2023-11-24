@@ -6,7 +6,7 @@ import com.example.sales.Enum.DiscountStatusEnum;
 import java.math.BigDecimal;
 
 public class ProductResponseDTO {
-    private Long productId;
+    private Integer productId;
     private String name;
     private String description;
     private Integer quantity;
@@ -32,11 +32,11 @@ public class ProductResponseDTO {
         this.discountStatus = discountStatus;
     }
 
-    public Long getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 

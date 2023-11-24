@@ -32,13 +32,13 @@ public class AuthController {
     }
 
     @PostMapping("/activation-code")
-    public ResponseEntity<Long> sendActivationCode(@RequestBody EmailRequestDTO emailRequest) throws AccountNotFoundException {
+    public ResponseEntity<Integer> sendActivationCode(@RequestBody EmailRequestDTO emailRequest) throws AccountNotFoundException {
         //TODO implementar o envio de email
         return ResponseEntity.ok(authService.generateActivationCode(emailRequest));
     }
 
     @PostMapping("/activate-account/{code}")
-    public ResponseEntity<HttpStatus> activateAccount(@RequestBody EmailRequestDTO emailRequest, @PathVariable Long code) throws Exception {
+    public ResponseEntity<HttpStatus> activateAccount(@RequestBody EmailRequestDTO emailRequest, @PathVariable Integer code) throws Exception {
         authService.validateCode(emailRequest, code);
         return ResponseEntity.ok().build();
     }

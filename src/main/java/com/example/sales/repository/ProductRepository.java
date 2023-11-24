@@ -5,17 +5,20 @@ import com.example.sales.model.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
-    ProductEntity findByUserIdAndSku(Long userId, String sku);
+public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
+    ProductEntity findByUserIdAndSku(Integer userId, String sku);
 
-    ProductEntity findByUserIdAndNameAndCategory(Long userId, String name, CategoryEnum category);
+    ProductEntity findByUserIdAndNameAndCategory(Integer userId, String name, CategoryEnum category);
 
-    ProductEntity findByIdAndUserId(Long id, Long userId);
+    ProductEntity findByIdAndUserId(Integer id, Integer userId);
 
-    List<ProductEntity> findAllByUserId(Long userId);
+    List<ProductEntity> findAllByUserId(Integer userId);
 
-    void deleteAllByUserId(Long userId);
+    List<ProductEntity> findByIdIn(List<Integer> ids);
+
+    void deleteAllByUserId(Integer userId);
 }
